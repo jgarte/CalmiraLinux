@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# ver - скрипт для отображения базовой информации о релизе дистрибутива
+#
+# Copyright (C) Linuxoid85, LinuxSovet Commiunity, 2021.
+#
+
+REL_NOTES=`cat /etc/Calmira/Release.Notes`
+source /etc/lsb-release
+
+echo -e "Welcome to $DISTRIB_ID!
+
+Version: $DISTRIB_RELEASE
+Codename: $DISTRIB_CODENAME
+
+Site: not found
+Commiunity: https://www.vk.com/linuxsovet
+
+Release notes: $REL_NOTES
+"
