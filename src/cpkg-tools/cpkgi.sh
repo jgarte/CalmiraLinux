@@ -13,6 +13,11 @@ source resources.sh
 #############################
 ### Инициализация скрипта ###
 #############################
+QUIET="0"	# Дефолтное значение переменной
+UNPACK="0"	# Дефолтное значение переменной
+
+testUser	# Тестирование на наличие прав для запуска этого скрипта
+
 while [ -n "$1" ]; do
 	case "$1" in
 		--quiet)
@@ -21,16 +26,27 @@ while [ -n "$1" ]; do
 		;;
 		
 		--unpack-only)
-			echo "Пакет только распакуется в кеш"
+			printMessage "Пакет только распакуется в кеш"
 			UNPACK="true"
 		;;
+		
+		--clean-cache)
+			printMessage "Очистка кеша пакетов"
+			printDialog "Действительно очистить кеш пакетов?"
+			
+			if [ $run = "Y" ]; then
+				rm -rf /var/cache/cpkg-tools/*
+			else
+				printMessage "Очистка кеша не выбрана"
+			fi
 		
 		--)
 			shift
 			break
 		;;
+		
 		*)
-			echo "$1 - не опция пакетного менеджера cpkgi"
+			printHelp cpkgi
 		;;
 	esac
 	shift
@@ -38,10 +54,14 @@ done
 
 count=1
 for param in $@; do
-	echo "Выбранные пакеты: #$count: $param"
+	echo "Выбранный пакет: #$count: $param"
 	count=$(( $count + 1 ))
 done
 
+
+#################################
+# Основные функции и переменные #
+#################################
 
 # Функция для поиска пакета в файловой системе
 searchPKG() {
@@ -53,12 +73,12 @@ searchPKG() {
 	fi
 
 	# Поиск пакета по шаблону $PKG.cpkg
-	echo -n "Поиск пакета по шаблону PKG.cpkg... "
+	printMessage -n "Поиск пакета по шаблону PKG.cpkg... "
 	if test -f "$1"; then
-		echo -e "\e[1;32mУСПЕШНО\e[0m"
+		printMessage -e "\e[1;32mУСПЕШНО\e[0m"
 	else
 		RESULT_SEARCH=0
-		echo -e "\e[1;31mНЕ НАЙДЕНО\e[0m"
+		printMessage -e "\e[1;31mНЕ НАЙДЕНО\e[0m"
 		exit 0
 	fi
 }
@@ -69,22 +89,34 @@ unpackPKG() {
 	
 	cp $1 /var/cache/cpkg-tools
 	cd /var/cache/cpkg-tools
-	tar -xf $1
-	if test -d PKG; then
-		echo -e "\e[1;32mГотово\e[0m"
+	
+	if [ $QUIET = "true" ]; then
+		tar -xf $1
 	else
-		echo -e "\e[1;31mОШИБКА\e[0m"
+		tar -xvf $1
+	fi
+	
+	if test -d PKG; then
+		printMessage -e "\e[1;32mГотово\e[0m"
+	else
+		printMessage -e "\e[1;31mОШИБКА\e[0m"
+		exit 0
+	fi
+	
+	if [ $UNPACK = "true" ]; then
+		echo "Выбрана только распаковка (ключ '--unpack-only')"
+		exit 0
 	fi
 }
 
 # Тестирование пакета на соответствие платформе Calmira
 TestPlatform() {
-	echo -n "Установка соответствия платформе CPL 1... "
+	printMessage -n "Установка соответствия платформе CPL 1... "
 	if [ $CPL_PLATFORM = $CPL ]; then
-		echo "Соответствует"
+		printMessage "Соответствует"
 	else
-		echo "Не соответствует!"
-		echo -e "\nСоответствие платформе CPL не установлено. Это
+		printMessage "Не соответствует!"
+		printMessage -e "\nСоответствие платформе CPL не установлено. Это
 значит, что пакет или битый, или конфигурационный файл конфига
 не содержит переменную 'CPL_PLATFORM', в таком случае обратитесь
 к мейнтейнеру пакета.
@@ -96,15 +128,15 @@ GNU/Linux до новой версии.
 
 Версия платформы Calmira: $CPL
 Минимальная версия платформы, на которой пакет работает: $CPL_PLATFORM"
-		echo -e "\n Вы действительно желаете установить этот пакет?
+		printMessage -e "\n Вы действительно желаете установить этот пакет?
 Это действие небезопасно и может сломать вашу систему!
 "
-		echo -n "Ввод (y/N): " && read run
+		printDialog "Ввод"
 		
 		if [ $run = "y" ]; then
-			echo "Выбрано продолжение установки. ВНИМАНИЕ! Это небезопасно."
+			printMessage "Выбрано продолжение установки. ВНИМАНИЕ! Это небезопасно."
 		else
-			echo "Продолжение установки не выбрано. Выход из программы cpkgi."
+			printMessage "Продолжение установки не выбрано. Выход из программы cpkgi."
 			exit 0
 		fi
 	fi
