@@ -10,6 +10,7 @@
 # каких-либо гарантий. 
 
 DATABASE=/var/cache/cpkg-tools/database
+PKGLIST=/var/cache/cpkg-tools/pkglist
 
 
 # Простая функция. Предназначена для ведения
@@ -30,6 +31,11 @@ printMessage() {
 	else
 		echo "$1" "$2"
 	fi
+}
+
+# Выводит сообщение в пустоту
+printNullMsg() {
+	echo > /dev/null
 }
 
 # Диалог
@@ -82,6 +88,17 @@ testDIR() {
 	esac
 }
 
+# Запись пакета в список пакетов
+writePkgList() {
+	if [ $DEPEND = "true" ]; then
+		echo "DEP $NAME --> $VERSION" >> $PKGLIST
+	fi
+	
+	if [ $DEPEND = "false" ]; then
+		echo "PKG $NAME --> $VERSION" >> $PKGLIST
+	fi
+}
+
 # Создание базы данных пакетов
 # В базе данных хранится название пакета, его
 # описание, содержимое пакета
@@ -95,6 +112,8 @@ testDIR() {
 createDB() {
  	testDIR db ex	# Проверка на наличие базы данных
 	echo "`cat ../config.sh`" >> $DATABASE
+	echo "$NAME ---> $DESCRIPTION
+" >> $PKGLIST
 }
 
 # Отобразить справку
@@ -114,6 +133,8 @@ printHelp() {
 /var/cache/cpkg-tools с кешем.
   * --clean-cache - ключ для очистки кеша cpkg-tools, в который распаковываются
  пакеты. РЕКОМЕНДУЕТСЯ использовать вместе с установкой пакета
+  * --info - просмотреть информацию о пакете
+  * --info-dep - без аргументов cpkgi с этим ключом выведет список всех пакетов, установленных как зависимости в системе, с указанием пакета произведёт проверку на факт установки пакета как зависимости
 
  СИНТАКСИС:
   cpkgi [--quiet --unpack-only --clean-db] -- PKG.cpkgi
