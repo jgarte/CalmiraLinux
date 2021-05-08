@@ -11,7 +11,7 @@
 # Build 2021.1 Alpha 1
 #
 
-source resources.sh
+source resources.sh	# Общие функции, переменные и настройки
 
 #############################
 ### Инициализация скрипта ###
@@ -44,6 +44,31 @@ while [ -n "$1" ]; do
 			fi
 		;;
 		
+		--info)
+			param="$2"
+			echo -e "\nИнформация о пакете $param:"
+			echo "СТАТ   ИМЯ   ВЕРСИЯ"
+			grep "$param" $PKGLIST
+			
+			exit 0
+		;;
+		
+		--info-dep)
+			if [ -n $2 ]; then
+				param="$2"
+				grep "DEP $2" $PKGLIST
+			else
+				echo -e "Список пакетов, установленных как зависимости: \n"
+				grep "DEP" $PKGLIST
+			fi
+			
+			exit 0
+		;;
+		
+		--help)
+			printHelp cpkgi
+		;;			
+		
 		--)
 			shift
 			break
@@ -70,7 +95,7 @@ done
 # Функция для поиска пакета в файловой системе
 searchPKG() {
 	if [ -n $1 ]; then
-		echo -n
+		printNullMsg
 	else
 		echo "ОШИБКА: вы не ввели имя пакета. Выход из программы установки пакетов."
 		exit 0
@@ -204,6 +229,7 @@ installPKG() {
 
 	printMessage "Внесение пакета в базу данных cpkg-tools..."
 	createDB
+	writePkgList
 	
 	printMessage "Запуск послеустановочных скриптов..."
 	PostINST	# Запуск post-install скриптов
