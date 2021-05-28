@@ -61,7 +61,7 @@ function error() {
 	fi
 	
 	if [ $1 = "no_arch" ]; then
-		echo -e "\e[1;31mERROR\e[0m: architecture $2 doesn't support on this host!"
+		echo -e "\e[1;31mERROR\e[0m: package architecture $2 doesn't support on this host!"
 	fi
 	
 	if [ $1 = "not_found_arch" ]; then
@@ -118,26 +118,17 @@ function unpack_pkg() {
 function arch_test_pkg() {
 	print_msg -n ">> \e[1;32mArchitecture test...\e[0m"
 	if [ -d $ARCHITECTURE ]; then
-		if [[ $ARCHITECTURE -ne $GetArch ]]; then
-			if [[ $ARCHITECTURE -ne "multiarch" ]]; then
-				error no_arch
-			else
-				print_msg -n "[ Multiarch DONE ] "
-			fi
+		print_msg " [ Arch variable not found ]"
+	fi
+
+	if [[ $ARCHITECTURE -ne $GetArch ]]; then
+		if [[ $ARCHITECTURE -ne "multiarch" ]]; then
+			error no_arch
 		else
-			print_msg "[ Arch DONE ]"
+			print_msg "[ Multiarch DONE ] "
 		fi
 	else
-		print_msg "[ Arch FAIL ]"
-		error not_found_arch
-		if [[ $QUIET -eq "true" ]]; then
-			exit 0
-		else
-			read -p "Exit cpkg? (y/N): " run
-			if [[ $run -eq "y" ]]; then
-				exit 0
-			fi
-		fi
+		print_msg "[ Arch DONE ]"
 	fi
 }
 
@@ -186,10 +177,10 @@ function install_pkg() {
 		cp ../changelog /etc/cpkg/database/packages/$PKG	# Copyng changelog file in database
 	fi
 
-	print_msg ">> \e[32mExecute postinstall script\e[0m"
 	if [ -d $POSTINST ]; then
 		exit 0
 	else
+		print_msg ">> \e[32mExecute postinstall script\e[0m"
 		bash $POSTINST
 	fi
 }
