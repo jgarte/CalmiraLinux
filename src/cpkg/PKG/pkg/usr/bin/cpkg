@@ -26,12 +26,16 @@
 # LOAD SCRIPT CONFIGURATIONS
 #
 source /usr/lib/cpkg/core-functions.sh		# Load the cpkg functions
+source /usr/lib/cpkg/other-functions.sh		# Load the additional/other cpkg functions
 source /etc/lsb-release				# Load the system information
 
 # CONF - configuretion directory
 # SOURCE - a mirror of Calmira
 CONF=/etc/cpkg
 QUIET="false"
+
+test_root
+check_file
 
 #==================================================================#
 #
@@ -56,9 +60,29 @@ while [ -n "$1" ]; do
 			exit 0
 		;;
 		
+		list|-l)
+			if [ $2 = "--verbose" ]; then
+				file_list --verbose=on
+			else
+				file_list --verbose=off
+			fi
+		;;
+		
+		search|-s)
+			file_list --verbose=on |grep $2
+		;;
+		
+		clean)
+			cache_clean
+		;;
+		
 		help)
 			help_pkg
 			exit 0
+		;;
+		
+		--quiet=true)	# Turn on quiet mode
+			QUIET="true"
 		;;
 
 		*)
