@@ -29,6 +29,7 @@
 #
 VERSION=1.0
 GetArch=$(uname -m)
+GetDate=$(date)
 GetCalmiraVersion=$DISTRIB_ID
 GetPkgLocation=$(pwd)
 
@@ -36,43 +37,6 @@ GetPkgLocation=$(pwd)
 #
 # BASE FUNCTIONS
 #
-
-# Function for a print message on screen
-function print_msg() {
-	if [[ $QUIET = "true" ]]; then
-		echo "$@" > /dev/null
-	else
-		echo -e $@
-	fi
-}
-
-# Function for a print error message on screen
-function error() {
-	if [ $1 = "no_pkg" ]; then
-		echo -e "\e[1;31mERROR\e[0m: package $PKG doesn't exists!"
-	fi
-	
-	if [ $1 = "no_config" ]; then
-		echo -e "\e[1;31mERROR\e[0m: configurition file doesn't exists!"
-	fi
-	
-	if [ $1 = "no_pkg_data" ]; then
-		echo -e "\e[1;31mERROR\e[0m: package data doesn't exists!"
-	fi
-	
-	if [ $1 = "no_arch" ]; then
-		echo -e "\e[1;31mERROR\e[0m: package architecture $2 doesn't support on this host!"
-	fi
-	
-	if [ $1 = "not_found_arch" ]; then
-		echo -e "\e[1;31mERROR\e[0m: doesn't find ARCHITECTURE variable on config.sh!"
-		
-		read -p "Continue? (y/N): " run
-		if [ $run = "N" ]; then
-			exit 0
-		fi
-	fi
-}
 
 # Function for search a package
 function search_pkg() {
@@ -156,6 +120,7 @@ function install_pkg() {
 	if test -f "postinst.sh"; then
 		print_msg ">> \e[32mSetting up postinstall script\e[0m\n"
 		POSTINST=$(pwd)/postinst.sh
+		chmod +x $POSTINST
 	fi
 	
 	if test -d "pkg"; then
@@ -171,10 +136,10 @@ function install_pkg() {
 	print_msg ">> \e[1;32mSetting up a package...\e[0m\n"
 	echo "$NAME $VERSION $DESCRIPTION $FILES
 " >> /etc/cpkg/database/all_db
-	mkdir /etc/cpkg/database/packages/$PKG			# Creating a directory with information about the package
-	cp ../config.sh /etc/cpkg/database/packages/$PKG	# Copyng config file in database
+	mkdir /etc/cpkg/database/packages/$NAME			# Creating a directory with information about the package
+	cp ../config.sh /etc/cpkg/database/packages/$NAME	# Copyng config file in database
 	if test -f "../changelog"; then
-		cp ../changelog /etc/cpkg/database/packages/$PKG	# Copyng changelog file in database
+		cp ../changelog /etc/cpkg/database/packages/$NAME	# Copyng changelog file in database
 	fi
 
 	if [ -d $POSTINST ]; then
@@ -188,42 +153,65 @@ function install_pkg() {
 # Function for remove package
 function remove_pkg() {
 	PKG=$1
+	log_msg "Search package $PKG" "Process"
 	if test -d "/etc/cpkg/database/packages/$PKG"; then
+		log_msg "Search package $PKG: $PWD" "OK"
+		log_msg "Read package information" "Process"
 		if test -f "/etc/cpkg/database/packages/$PKG/config.sh"; then
 			cd /etc/cpkg/database/packages/$PKG
+			log_msg "Read package information:" "OK"
 			source config.sh
 		else
+			log_msg "Read package information:" "FAIL"
+			log_msg "dbg info:
+test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "FAIL"
 			print_msg "\e[1;31mFile\e[0m \e[35m$(pwd)/config.sh\e[0m \e[1;31mdoesn't exists! ERROR! \e[0m"
 			exit 0
 		fi
 	else
+		log_msg "Package $PKG isn't installed or it's name was entered incorrectly" "FAIL"
 		print_msg "\e[1;31mPackage\e[0m \e[35m$PKG\e[0m \e[1;31mis not installed or it's name was entered incorrectly\e[0m"
 		exit 0
 	fi
 	
+	log_msg "Remove package $PKG" "Process"
 	print_msg ">> \e[1;34mRemove package\e[0m \e[35m$PKG\e[0m\e[1;34m...\e[0m"
+	
+	log_msg "Remove package data" "Process"
 	rm -rf $FILES
+	
+	log_msg "Remove database" "Process"
 	rm -rf /etc/cpkg/database/packages/$PKG
 	if test -d /etc/cpkg/database/packages/$PKG; then
+		log_msg "Removed sucessfull" "OK"
 		print_msg "\e[31mPackage $PKG removed unsucessfully! \e[0m"
 	else
+		log_msg "Removed unsucessfull!" "FAIL"
 		print_msg "\e[32mPackage $PKG removed sucessfully! \e[0m"
 	fi
 }
 
 # Function to read package info
 function package_info() {
-	PKG=$2
+	PKG=$1
 	if test -d "/etc/cpkg/database/packages/$PKG"; then
-		if test -f "/etc/cpkg/database/packages/$PKG/config.sh"; then
-			cd /etc/cpkg/database/packages/$PKG
+		cd /etc/cpkg/database/packages/$PKG
+		log_msg "Read package information" "Process"
+		if test -f "config.sh"; then
+			log_msg "Read package information:" "OK"
 			source config.sh
 		else
-			print_msg "\e[1;31mFile\e[0m \e[1;35m$(pwd)/config.sh\e[0m \e[1;31mdoesn't exists! ERROR! \e[0m"
+			log_msg "Read package information:" "FAIL"
+			log_msg "dbg info:
+test '$PWD/config.sh' fail, because this config file (config.sh) doesn't find" "FAIL"
+			print_msg "\e[1;31mERROR\e[0m: $PWD/config.sh doesn't find!"
 			exit 0
 		fi
 	else
-		print_msg "\e[1;31mPackage\e[0m \e[1;35m$PKG\e[0m \e[1;31mis not installed or it's name was entered incorrectly\e[0m"
+		log_msg "Print info about package $PKG" "FAIL"
+		log_msg "dbg info:
+test '/etc/cpkg/database/packages/$PKG' fail, because this directory doesn't find" "FAIL"
+		print_msg "\e[1;31mERROR: package \e[10m\e[1;35m$PKG\e[0m\e[1;31m doesn't installed! \e[0m"
 		exit 0
 	fi
 	
@@ -234,40 +222,22 @@ function package_info() {
 	echo -e "\e[1;34mPackage files\e[0m:            $FILES"
 }
 
-# Function for show package changelog
-function package_changelog() {
-	PKG=$2
-	if test -d "/etc/cpkg/database/packages/$PKG"; then
-		if test -f "/etc/cpkg/database/packages/$PKG/changelog"; then
-			cd /etc/cpkg/database/packages/$PKG
-		else
-			print_msg "\e[1;31mMissing changelog.\e[0m"
-			exit 0
-		fi
-	else
-		print_msg "\e[1;31mPackage\e[0m \e[1;35m$PKG\e[0m \e[1;31mis not installed or it's name was entered incorrectly\e[0m"
-		exit 0
-	fi
-	
-	echo -e "\e[1;32mPackage changelog ($PKG):\e[0m"
-	cat changelog
-}
-
 # Function for a list packages in file system
 function file_list() {
+	cd /etc/cpkg/database/packages/
 	if [[ $1 -eq "--verbose=on" ]]; then
-		ls -l $2
+		ls -l
 	fi
 	
 	if [[ $1 -eq "--verbose=off" ]]; then
-		ls |grep "$2"
+		ls
 	fi
 }
 
 # Function for search a package in file system (do not for install/remove package!!!)
 function file_search() {
 	PKG=$2
-	print_msg ">> \e[1;32mSearch package\e[0m \e[35m$PKG\e[0m\e[1;32m...\e[0m"
+	print_msg ">> \e[1;32mSearch package\e[0m \e[35m$PKG\e[0m\e[1;32m...\e[0m"; log_msg "Search package $PKG" "Process"
 	if test -f "$PKG"; then
 		echo -e "\e[1;32mSearch result:\e[0m"
 		if [[ $1 -eq "--verbose=on" ]]; then
@@ -278,6 +248,7 @@ function file_search() {
 			file_list --verbose=off $PKG
 		fi
 	else
+		log_msg "Search package $PKG" "FAIL"
 		error no_pkg
 		exit 0
 	fi
@@ -285,7 +256,8 @@ function file_search() {
 
 # Function for clean cache
 function cache_clean() {
-	print_msg "\e[1;32mClearing the cache...\e[0m"
+	print_msg "[ $GetDate ] \e[1;32mClearing the cache...\e[0m"
+	log_msg "Clearing cpkg cache..." "?"
 	rm -rf /var/cache/cpkg/archives/*
 }
 
@@ -298,10 +270,17 @@ function help_pkg() {
 \e[1;32mBASE FUNCTIONS\e[0m
 \e[1minstall\e[0m        - install package
 \e[1mremove\e[0m         - remove package
+\e[1mlist\e[0m           - list all packages
+\e[1msearch\e[0m         - search a package
 
 ---------------------------------------------------
 \e[1;32mKEYS\e[0m
-      --- none ---
+\e[1m-i\e[0m             - install package
+\e[1m-r\e[0m             - remove package
+\e[1m-I\e[0m             - information about package
+\e[1m-s\e[0m             - search install package
+\e[1m--quiet=true\e[0m   - quiet mode
+\e[1m--debug-mode\e[0m   - debug mode
 ---------------------------------------------------
 (C) 2021 Michail Krasnov (aka Linuxoid85) \e[4m<michail383krasnov@mail.ru>\e[0m
 For Calmira GNU/Linux $GetCalmiraVersion
