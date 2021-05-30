@@ -49,18 +49,19 @@ fi
 while [ -n "$1" ]; do
 	case $1 in
 		install|-i)
+			echo -e "[ $(date) ] [ Install the package $2 ]\n" >> $LOG_DIR/history.log
 			unpack_pkg $2	# Unpack the package
 			cd /var/cache/cpkg/archives
 			install_pkg $2
-			exit 0
 		;;
 		
 		remove|-r)
+			echo -e "[ $(date) ] [ Remove the package $2 ]\n" >> $LOG_DIR/history.log
 			remove_pkg $2	# Remove
-			exit 0
 		;;
 		
 		list|-l)
+			echo -e "[ $(date) ] [ List packages ]\n" >> $LOG_DIR/history.log
 			if [ $2 = "--verbose" ]; then
 				file_list --verbose=on
 			else
@@ -69,27 +70,39 @@ while [ -n "$1" ]; do
 		;;
 		
 		search|-s)
+			echo -e "[ $(date) ] [ Search install package ]\n" >> $LOG_DIR/history.log
 			file_list --verbose=on |grep $2
 		;;
 		
+		info|-I)
+			echo -e "[ $(date) ] [ Information about $2 ]\n" >> $LOG_DIR/history.log
+			package_info $2
+		;;
+		
 		clean)
+			echo -e "[ $(date) ] [ Clean cache ]\n" >> $LOG_DIR/history.log
 			cache_clean
 		;;
 		
 		help)
 			help_pkg
-			exit 0
 		;;
 		
 		--quiet=true)	# Turn on quiet mode
 			QUIET="true"
 		;;
+		
+		--debug-mode)	# Turn on a debug mode
+			DBG_QUIET="true"
+		;;
 
 		*)
+			echo -e "[ $(date) ] [ Uknown option(s) '$@' ]\n" >> $LOG_DIR/history.log
 			echo -e "\e[1;31mERROR: option(s) '$@' doesn't exists! \e[0m\n"
 			help_pkg
-			exit 0
 		;;
 	esac
+	
+	exit 0
 done
 			
