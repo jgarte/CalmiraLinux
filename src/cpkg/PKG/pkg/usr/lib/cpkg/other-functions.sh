@@ -44,7 +44,7 @@ function print_msg() {
 
 # Function for print a debug messages on screen
 function print_dbg_msg() {
-	if [[ $DBG_QUIET = "true" ]]; then
+	if [[ $DBG = "false" ]]; then
 		echo "$@" > /dev/null
 	else
 		echo -e $@
