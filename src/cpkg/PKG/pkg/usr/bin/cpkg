@@ -25,14 +25,28 @@
 #
 # LOAD SCRIPT CONFIGURATIONS
 #
-source /usr/lib/cpkg/core-functions.sh		# Load the cpkg functions
-source /usr/lib/cpkg/other-functions.sh		# Load the additional/other cpkg functions
+
+if test -f "/usr/lib/cpkg/other-functions.sh"; then
+	source /usr/lib/cpkg/other-functions.sh		# Load the additional/other cpkg functions
+else
+	echo -e "\e[1;31mERROR: source /usr/lib/cpkg/other-functoons doesn't found!\e[0m"
+	exit 0
+fi
+
+if test -f "/usr/lib/cpkg/core-functions.sh"; then
+	source /usr/lib/cpkg/core-functions.sh		# Load the cpkg functions
+else
+	echo -e "\e[1;31mERROR: source /usr/lib/cpkg/core-functoons doesn't found!\e[0m"
+	exit 0
+fi
+
 source /etc/lsb-release				# Load the system information
 
 # CONF - configuretion directory
 # SOURCE - a mirror of Calmira
 CONF=/etc/cpkg
 QUIET="false"
+DBG="false"
 
 test_root
 check_file
@@ -93,7 +107,7 @@ while [ -n "$1" ]; do
 		;;
 		
 		--debug-mode)	# Turn on a debug mode
-			DBG_QUIET="true"
+			DBG="true"
 		;;
 
 		*)

@@ -54,6 +54,7 @@ function search_pkg() {
 function unpack_pkg() {
 	PKG=$1
 	search_pkg $PKG
+	print_dbg_msg "Copy $PKG in /var/cache/cpkg/archives..."
 	cp $PKG /var/cache/cpkg/archives/
 
 	if test -f "/var/cache/cpkg/archives/$PKG"; then
@@ -62,6 +63,8 @@ function unpack_pkg() {
 		echo "Package $PKG not find."
 		exit 0
 	fi
+	
+	print_dbg_msg "Change dir..."
 	cd /var/cache/cpkg/archives
 	
 	if test -d "PKG"; then
