@@ -126,15 +126,24 @@ function install_pkg() {
 		chmod +x $POSTINST
 	fi
 	
-	if test -d "pkg"; then
-		print_msg ">> \e[1;32mCopyng package data...\e[0m"
-	else
-		error no_pkg_data
-		exit 0
+	if test -f "port.sh"; then
+		print_msg ">> \e[32mInstall port package...\e[0m"
+		PORT=true
+		bash port.sh
 	fi
 	
-	cd pkg
-	cp -r * /
+	if test -d "pkg"; then
+		print_msg ">> \e[1;32mCopyng package data...\e[0m"
+		cd pkg
+		cp -r * /
+	else
+		if [[ $PORT = "true" ]]; then
+			echo "WARN: package dir 'pkg' doesn't found."
+		else
+			error no_pkg_data
+			exit 0
+		fi
+	fi
 	
 	print_msg ">> \e[1;32mSetting up a package...\e[0m\n"
 	echo "$NAME $VERSION $DESCRIPTION $FILES
@@ -145,11 +154,11 @@ function install_pkg() {
 		cp ../changelog /etc/cpkg/database/packages/$NAME	# Copyng changelog file in database
 	fi
 
-	if [ -d $POSTINST ]; then
-		exit 0
-	else
+	if [ -f $POSTINST ]; then
 		print_msg ">> \e[32mExecute postinstall script\e[0m"
 		bash $POSTINST
+	else
+		exit 0
 	fi
 }
 
