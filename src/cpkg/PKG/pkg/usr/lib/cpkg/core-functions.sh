@@ -129,12 +129,13 @@ function install_pkg() {
 	if test -f "port.sh"; then
 		print_msg ">> \e[32mInstall port package...\e[0m"
 		PORT=true
+		PWD_DIR=$(pwd)
 		bash port.sh
 	fi
 	
 	if test -d "pkg"; then
 		print_msg ">> \e[1;32mCopyng package data...\e[0m"
-		cd pkg
+		cd $PWD_DIR/pkg
 		cp -r * /
 	else
 		if [[ $PORT = "true" ]]; then
