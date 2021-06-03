@@ -117,7 +117,7 @@ function install_pkg() {
 	if test -f "preinst.sh"; then
 		print_msg ">> \e[32mExecute preinstall script\e[0m"
 		chmod +x preinst.sh
-		bash preinst.sh
+		./preinst.sh
 	fi
 
 	if test -f "postinst.sh"; then
@@ -130,8 +130,10 @@ function install_pkg() {
 		print_msg ">> \e[32mInstall port package...\e[0m"
 		PORT=true
 		PWD_DIR=$(pwd)
-		bash port.sh
+		./port.sh
 	fi
+	
+	cd $PWD_DIR
 	
 	if test -d "pkg"; then
 		print_msg ">> \e[1;32mCopyng package data...\e[0m"
@@ -157,7 +159,7 @@ function install_pkg() {
 
 	if [ -f $POSTINST ]; then
 		print_msg ">> \e[32mExecute postinstall script\e[0m"
-		bash $POSTINST
+		./$POSTINST
 	else
 		exit 0
 	fi
