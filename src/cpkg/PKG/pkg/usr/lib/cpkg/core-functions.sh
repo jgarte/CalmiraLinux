@@ -138,6 +138,12 @@ function install_pkg() {
 	if test -d "pkg"; then
 		print_msg ">> \e[1;32mCopyng package data...\e[0m"
 		cd $PWD_DIR/pkg
+		bash port.sh
+	fi
+	
+	if test -d "pkg"; then
+		print_msg ">> \e[1;32mCopyng package data...\e[0m"
+		cd pkg
 		cp -r * /
 	else
 		if [[ $PORT = "true" ]]; then
@@ -160,7 +166,8 @@ function install_pkg() {
 	if [ -f $POSTINST ]; then
 		print_msg ">> \e[32mExecute postinstall script\e[0m"
 		./$POSTINST
-	else
+		bash $POSTINST
+    else
 		exit 0
 	fi
 }
