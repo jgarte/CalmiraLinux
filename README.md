@@ -17,7 +17,8 @@
 ```bash
 sudo mkdir /mnt/calmira           # Создание точки монтирования
 sudo mount /dev/sdX /mnt/calmira  # Монтирование раздела
-cd /mnt/calmira
+export SYSTEM=/mnt/calmira
+cd $SYSTEM
 ```
 
 Потом распакуйте образ с системой:
@@ -27,6 +28,8 @@ sudo unsquashfs /путь/до/образа/calmira_$VERSION_$BUILD.sqsh
 
 * `$VERSION` - версия дистрибутива
 * `$BUILD` - версия билда дистрибутива
+
+Например, `calmira_2021.2_build2.sqsh`.
 
 После чего установите загрузчик GRUB и приступите к настройке дистрибутива
 
