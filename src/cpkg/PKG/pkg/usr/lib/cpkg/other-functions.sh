@@ -178,6 +178,12 @@ function log_msg() {
 	# $1 - msg
 	# $2 - result
 	
+	if [ -z $3 ]; then
+		LOG=/var/log/cpkg.log
+	else
+		LOG=$3
+	fi
+	
 	echo "[ $(date) ] [ $1 ] [ $2 ]
-" >> /var/log/cpkg.log
+" >> $LOG
 }
