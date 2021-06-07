@@ -26,6 +26,11 @@
 # LOAD SCRIPT CONFIGURATIONS
 #
 
+# CONF - configuration directory
+# SOURCE - a mirror of Calmira
+CONF=/etc/cpkg
+SOURCE=$CONF/mirror.list
+
 if test -f "/usr/lib/cpkg/other-functions.sh"; then
 	source /usr/lib/cpkg/other-functions.sh		# Load the additional/other cpkg functions
 else
@@ -40,11 +45,15 @@ else
 	exit 0
 fi
 
+if test -f "$SOURCE"; then
+	source $SOURCE
+else
+	echo -e "\e[1;31mERROR: source $SOURCE doesn't found! \e[0m"
+	exit 0
+fi
+
 source /etc/lsb-release				# Load the system information
 
-# CONF - configuretion directory
-# SOURCE - a mirror of Calmira
-CONF=/etc/cpkg
 QUIET="false"
 DBG="false"
 CLEAN="false"
@@ -100,7 +109,7 @@ while [ -n "$1" ]; do
 			package_info $2
 		;;
 		
-		clean)
+		clean|-C)
 			echo -e "[ $(date) ] [ Clean cache ]\n" >> $LOG_DIR/history.log
 			cache_clean
 		;;
@@ -116,9 +125,16 @@ while [ -n "$1" ]; do
 		--debug-mode)	# Turn on a debug mode
 			DBG="true"
 		;;
-		
-		--clean)	# Clean cache before installation
+	
+	
+		### INSTALL OPTIONS ###
+	
+		--clean|-c)	# Clean cache before installation
 			CLEAN="true"
+		;;
+
+		--update|-u)	# Update package mode
+			UPDATE="true"
 		;;
 
 		*)
