@@ -122,14 +122,15 @@ function install_pkg() {
 
 	if test -f "postinst.sh"; then
 		print_msg ">> \e[32mSetting up postinstall script\e[0m\n"
-		POSTINST=$(pwd)/postinst.sh
-		chmod +x $POSTINST
+		DIR=$(pwd)
+		chmod +x postinst.sh
 	fi
 	
 	if test -f "port.sh"; then
 		print_msg ">> \e[32mInstall port package...\e[0m"
 		PORT=true
-		bash port.sh
+		./port.sh
+		cd $DIR
 	fi
 	
 	if test -d "pkg"; then
@@ -156,7 +157,8 @@ function install_pkg() {
 
 	if [ -f $POSTINST ]; then
 		print_msg ">> \e[32mExecute postinstall script\e[0m"
-		bash $POSTINST
+		cd $DIR
+		./postinst.sh
 	else
 		exit 0
 	fi
@@ -220,6 +222,27 @@ Download package $PKG..."
 		exit 0
 	fi
 	install_pkg $PKG
+}
+
+function download_pkg() {
+	if grep "$1" $SOURCE; then
+		print_msg "Found package '$1'"
+	else
+		print_msg "Package '$1' doesn't fing of $SOURCE"
+		exit 0
+	fi
+	
+	print_dbg_msg "download package..."
+	wget $1 -o $LOG_DIR/download.log
+	
+	print_dbg_msg -n "test package... "
+	if test -f "$1.txz"; then
+		print_dbg_msg "done"
+	else
+		print_dbg_msg "FAIL"
+		print_msg "\e[1;31mERROR: package '$1' was downloaded unsuccesfully!\e[0m"
+		exit 0
+	fi
 }
 
 # Function to read package info
