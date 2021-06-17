@@ -5,7 +5,6 @@
 # Copyright (C) Linuxoid85, LinuxSovet Commiunity, 2021.
 #
 
-REL_NOTES=`cat /etc/Calmira/Release.Notes`
 source /etc/lsb-release
 
 echo -e "Welcome to $DISTRIB_ID!
@@ -16,5 +15,4 @@ Codename: $DISTRIB_CODENAME
 Site: not found
 Commiunity: https://www.vk.com/linuxsovet
 
-Release notes: $REL_NOTES
 "

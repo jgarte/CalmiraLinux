@@ -48,4 +48,4 @@ sudo unsquashfs /путь/до/образа/calmira_$VERSION_$BUILD.sqsh
 ## Контакты
 * E-mail разработчика: <linuxoid85@gmail.com>
 * ВК разработчика: [@linuxoid85](https://www.vk.com/linuxoid85)
-* Группа разработчика: [@linuxsovet](https://www.vk.com/linuxsovet)
+* Группа разработчика: [@linuxsovet](https://t.me/linuxsovet)
