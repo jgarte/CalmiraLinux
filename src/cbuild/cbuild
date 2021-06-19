@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+# build-system
+#
+# Скрипт для автоматизации сборки системы
+# (C) 2021 Michail Krasnov (Linuxoid85) <linuxoid85@gmail.com>
+#
+
+# Базовые переменные
+VERSION="2021.3"
+DISTRO_NAME="calmira-$VERSION.sqsh"
+
+# Выбор директории с готовой системой
+echo -e "\e[1mВыбериет директорию, в которой находится собранная система:\e[0m"
+select DIR in "/mnt/calm" "/mnt/calm_dev" "/mnt/system"; do
+	echo "Директория, в которой установлен дистрибутив: $DIR"
+	CALM_DIR=$DIR
+	break
+done
+
+# Отключение мешающих разделов
+for PART in "dev/pts" "dev" "sys" "proc"; do
+	echo "Отмонтируется раздел $PART..."
+	umount $CALM_DIR/$PART
+done
+
+# Удаление ненужных файлов
+cd $CALM_DIR
+
+for FILE in "root/*" "tmp" "var/log/cpkg" "var/cache/cpkg"; do
+	echo "Удаление файла/директории $FILE..."
+	rm -rf $FILE
+done
+
+cd -
+echo -e "\n\e[1mСборка системы в sqsh...\e[0m"
+mksquashfs $CALM_DIR $DISTRO_NAME -comp xz

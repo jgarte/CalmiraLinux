@@ -1,0 +1,8 @@
+В данном документе описываются баги текущего релиза.
+
+Calmira 2021.3.1. Баги:
+* не работает GIT. Не работает совсем. Выдаёт ошибку, что не знает введённую опцию.
+* частично работает uptime. Не работает ничего из опций, кроме --help.
+* Ошибки в ядре. Выдаёт предупреждения на использование подкачки:
+"File cmds.h has unsorted name entry lvconvert_to_cachepool_or_swap_metadata."
+* Ошибка в "/etc/rc.d/rcS.d/S10udev:line 31: 228 Segmentation fault /sbin/vgchange -a y > ..."
