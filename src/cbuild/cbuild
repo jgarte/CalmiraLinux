@@ -11,8 +11,8 @@ VERSION="2021.3"
 DISTRO_NAME="calmira-$VERSION.sqsh"
 
 # Выбор директории с готовой системой
-echo -e "\e[1mВыбериет директорию, в которой находится собранная система:\e[0m"
-select DIR in "/mnt/calm" "/mnt/calm_dev" "/mnt/system"; do
+echo -e "\e[1mВыберите директорию, в которой находится собранная система:\e[0m"
+select DIR in "/mnt/calm" "/mnt/calm_exp" "/mnt/calm_test"; do
 	echo "Директория, в которой установлен дистрибутив: $DIR"
 	CALM_DIR=$DIR
 	break

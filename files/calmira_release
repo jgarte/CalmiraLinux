@@ -1,0 +1,8 @@
+# Begin /etc/calmira_release
+
+CALMIRA_RELEASE=2021.3
+CALMIRA_CODENAME="Cassiopeia"
+CALMIRA_BUILD=1
+CALMIRA_SITE="https://github.com/Linuxoid85/CalmiraLinux"
+
+# End /etc/calmira_release
