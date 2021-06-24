@@ -1,0 +1,14 @@
+#!/bin/bash
+# Created by Michail Linuxoid85 Krasnov in 2021
+# for Calmira 2021.3 GNU/Linux
+
+# Begin /etc/CalmiraVersion
+
+CALMIRA_NAME="Calmira"
+CALMIRA_LONG_NAME="Calmira GNU/Linux"
+CALMIRA_CODENAME="Cassiopeia"
+CALMIRA_VERSION="2021.3"
+CALMIRA_BUILD="1"
+CALMIRA_CREATOR="Michail Linuxoid85 Krasnov"
+
+# End /etc/CalmiraVersion

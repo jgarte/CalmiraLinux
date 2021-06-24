@@ -24,9 +24,9 @@ for PART in "dev/pts" "dev" "sys" "proc"; do
 	umount $CALM_DIR/$PART
 done
 
-# Удаление ненужных файлов
 cd $CALM_DIR
 
+# Удаление ненужных файлов
 for FILE in "root/*" "tmp" "var/log/cpkg" "var/cache/cpkg"; do
 	echo "Удаление файла/директории $FILE..."
 	rm -rf $FILE
