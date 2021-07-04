@@ -18,12 +18,12 @@
 sudo mkdir /mnt/calmira           # Создание точки монтирования
 sudo mount /dev/sdX /mnt/calmira  # Монтирование раздела
 export SYSTEM=/mnt/calmira
-cd $SYSTEM
 ```
 
 Потом распакуйте образ с системой:
 ```bash
 sudo unsquashfs /путь/до/образа/calmira_$VERSION_$BUILD.sqsh
+cp -rv squashfs-root/* $SYSTEM
 ```
 
 * `$VERSION` - версия дистрибутива
