@@ -25,7 +25,7 @@ export SYSTEM=/mnt/calmira
 Потом распакуйте образ с системой:
 ```bash
 sudo unsquashfs /путь/до/образа/calmira_$VERSION_$BUILD.sqsh
-cp -rv squashfs-root/* $SYSTEM/
+cp -rv squashfs-root/* $SYSTEM
 ```
 
 * `$VERSION` - версия дистрибутива
