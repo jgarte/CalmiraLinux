@@ -54,23 +54,7 @@ void error_msg(string ErrorMessage) {
  *                                            *
  **********************************************/ 
 
-void log_msg(string Function, string Message, string Status) {
-	string STATUS;
-	
-	if(Status == "ok") {
-		STATUS = "OK";
-	} else if(Status == "notice") {
-		STATUS = "Notice";
-	} else if(Status == "err") {
-		STATUS = "Error";
-	} else if(Status == "fail") {
-		STATUS = "Fail";
-	} else if(Status == "emerg") {
-		STATUS = "emerg";
-	} else {
-		error_msg("ERROR: status doesn't found!");
-	}
-	
+void log_msg(string Function, string Message, string Status) {	
 	ofstream log("cpkg.log", ios_base::app);
 	
 	log << "[ " << currentDateTime() << " ] " << "Function '" << Function << "': " << Message << " [ " << Status << " ]\n";
@@ -79,10 +63,6 @@ void log_msg(string Function, string Message, string Status) {
 
 // Функция для открытия файла со справкой
 void print_text(string text) {
-	/***********************************************
-	 * Объявление переменной line строкового типа, *
-	 * в которой будет находиться содержимое файла *
-	 **********************************************/
 	string line;
 
 	ifstream file(text);
