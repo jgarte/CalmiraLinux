@@ -57,20 +57,6 @@ void error_msg(string ErrorMessage) {
 void log_msg(string Function, string Message, string Status) {
 	string STATUS;
 	
-	if(Status == "ok") {
-		STATUS = "OK";
-	} else if(Status == "notice") {
-		STATUS = "Notice";
-	} else if(Status == "err") {
-		STATUS = "Error";
-	} else if(Status == "fail") {
-		STATUS = "Fail";
-	} else if(Status == "emerg") {
-		STATUS = "emerg";
-	} else {
-		error_msg("ERROR: status doesn't found!");
-	}
-	
 	ofstream log("cpkg.log", ios_base::app);
 	
 	log << "[ " << currentDateTime() << " ] " << "Function '" << Function << "': " << Message << " [ " << Status << " ]\n";

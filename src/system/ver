@@ -12,7 +12,7 @@ echo -e "Welcome to $DISTRIB_ID!
 Version: $DISTRIB_RELEASE
 Codename: $DISTRIB_CODENAME
 
-Site: not found
+Site: https://github.com/Linuxoid85/CalmiraLinux
 Commiunity: https://t.me/linuxsovet
 
 "
