@@ -1,10 +1,14 @@
 #ifndef CORE_FUNCTIONS_H
 #define CORE_FUNCTIONS_H
+
+/*
+ * Header file for internal use within the Calmira
+ * distribution and its components
+ */
+
 #include <iostream>
 #include <fstream>
 #include <ctime>
-#include <archive.h>
-#include <archive_entry.h>
 using namespace std;
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
@@ -60,7 +64,6 @@ void log_msg(string Function, string Message, string Status) {
 	log.close();
 }
 
-// Функция для открытия файла со справкой
 void print_text(string text) {
 	string line;
 
@@ -78,7 +81,6 @@ void print_text(string text) {
 	file.close(); // Закрытие файла
 }
 
-// Функция для записи информации в файл
 void write_text(string text) {
 	int i, num;
 	string a;
