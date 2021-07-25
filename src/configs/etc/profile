@@ -55,6 +55,8 @@ Site: https://github.com/Linuxoid85/CalmiraLinux
 "
 }
 
+export -f ver
+
 # Set the initial path
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 
