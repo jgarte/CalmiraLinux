@@ -3,7 +3,8 @@
 # by James Robertson <jameswrobertson@earthlink.net>
 # modifications by Dagmar d'Surreal <rivyqntzne@pbzpnfg.arg>
 # modifications for Linux4yourself by makpif <citokot@gmail.com>
-# modifications for Calmira LX4 by Michail Linuxoid85 Krasnov <linuxoid85@gmail.com>
+# modifications for Calmira LX4 1.1 by Michail Krasnov
+#                                           <linuxoid85@gmail.com>
 
 # System wide environment variables and startup programs.
 
@@ -54,8 +55,10 @@ export XDG_DATA_DIRS=${XDG_DATA_DIRS:-/usr/share/}
 export XDG_CONFIG_DIRS=${XDG_CONFIG_DIRS:-/etc/xdg/}
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/xdg-$USER}
 
+# Setup a command promt
 PS1='\u:\w\$ '
 
+# Source user files from /etc/profile.d
 for script in /etc/profile.d/*.sh ; do
         if [ -r $script ] ; then
                 . $script
