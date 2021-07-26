@@ -97,13 +97,13 @@ cd /usr/ports/$КАТЕГОРИЯ/$ПАКЕТ
 
 На данный момент не собираются загрузочные iso-образы с дистрибутивом. Он распространяется в виде squashfs-снимков для распаковки и работы из-под другого Linux-дистрибутива (посредством `chroot`), установки в виртуальную машину (например, в qemu), либо же копирования содержимого снимка на флешку или раздел жёсткого диска для полноценного использования на реальном железе.
 
-Последняя (на данный момент) версия Calmira LX4 1.0 доступна [здесь](https://github.com/Linuxoid85/CalmiraLinux/releases/download/v1.0/calmira-1.0.sqsh) (207 Мб squashfs-образ).
+* Последняя (на данный момент) версия Calmira LX4 1.0 доступна [здесь](https://github.com/Linuxoid85/CalmiraLinux/releases/download/v1.0/calmira-1.0.sqsh) (207 Мб squashfs-образ).
 
 > Долгожданная версия LX4 1.1 выйдет 15.11.2021 с большим числом изменений и нововведений.
 
-Временный инструментарий для восстановления/пересборки доступен [здесь](https://github.com/Linuxoid85/CalmiraLinux/releases/download/v1.1temp/calm-temp-sys_lx4.1.1.tar.xz) (143 Мб tar архив, сжатый методом `xz`).
+* Временный инструментарий для восстановления/пересборки доступен [здесь](https://github.com/Linuxoid85/CalmiraLinux/releases/download/v1.1temp/calm-temp-sys_lx4.1.1.tar.xz) (143 Мб tar архив, сжатый методом `xz`).
 
-Все релизы доступны [здесь](https://github.com/Linuxoid85/CalmiraLinux/releases).
+* Все релизы доступны [здесь](https://github.com/Linuxoid85/CalmiraLinux/releases).
 
 ## Контакты
 * E-mail разработчика: <linuxoid85@gmail.com>
