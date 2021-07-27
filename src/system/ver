@@ -12,6 +12,7 @@ echo -e "Welcome to $DISTRIB_ID!
 Version: $DISTRIB_RELEASE
 Codename: $DISTRIB_CODENAME
 
-Site: https://github.com/Linuxoid85/CalmiraLinux
+Site: https://linuxoid85.github.io/CalmiraLinux/
+Repository: https://github.com/Linuxoid85/CalmiraLinux
 
 "

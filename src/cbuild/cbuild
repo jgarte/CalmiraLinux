@@ -4,15 +4,16 @@
 #
 # Скрипт для автоматизации сборки системы
 # (C) 2021 Michail Krasnov (Linuxoid85) <linuxoid85@gmail.com>
+# Для Calmira 2021.3 и LX4 1.1
 #
 
 # Базовые переменные
-VERSION="2021.3"
+VERSION="1.1"
 DISTRO_NAME="calmira-$VERSION.sqsh"
 
 # Выбор директории с готовой системой
 echo -e "\e[1mВыберите директорию, в которой находится собранная система:\e[0m"
-select DIR in "/mnt/calm" "/mnt/calm_exp" "/mnt/calm_test"; do
+select DIR in "/mnt/calm" "/mnt/calm_exp" "/mnt/calm_test" "/mnt/lin"; do
 	echo "Директория, в которой установлен дистрибутив: $DIR"
 	CALM_DIR=$DIR
 	break
