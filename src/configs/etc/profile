@@ -67,8 +67,9 @@ ver     - about Calmira Linux
 
 Shell start date: $(shall_date_start)
 "
+}
 
-export -f ver
+export -f ver system_welcome
 
 # Set the initial path
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
