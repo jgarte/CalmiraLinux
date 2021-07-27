@@ -83,7 +83,7 @@ sudo umount /mnt/calmira_system/{sys,proc,run}
 И отмонтируйте образ жёсткого диска для Qemu:
 
 ```bash
-sudo umount /нужная/директория
+sudo umount /mnt/calmira_system
 sudo qemu-nbd --disconnect /dev/nbd0
 sudo rmmod nbd
 ```
