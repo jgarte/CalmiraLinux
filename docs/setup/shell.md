@@ -1,4 +1,4 @@
-# Настройка окружения
+# Настройка окружения и конфигурационных файлов
 
 В данном разделе содержится описание конфигурационных файлов Calmira.
 
@@ -61,3 +61,23 @@ set lbr
 ```
 
 Предназначены для отображения номеров строк сбоку и переноса строк по словам соотв.
+
+## Редактирование настроек file system table
+
+В файле `/etc/fstab` приведены базовые настройки монтирования файловых систем. Не изменяйте следующие строки, без которых система не сможет загрузиться корректно:
+
+```fstab
+proc           /proc        proc     nosuid,noexec,nodev 0     0
+sysfs          /sys         sysfs    nosuid,noexec,nodev 0     0
+devpts         /dev/pts     devpts   gid=5,mode=620      0     0
+tmpfs          /run         tmpfs    defaults            0     0
+devtmpfs       /dev         devtmpfs mode=0755,nosuid    0     0
+```
+
+## Установка имени хоста
+
+```bash
+echo "calmira_pc" > /etc/hostname
+```
+
+Замените `calmira_pc` на имя хоста.
