@@ -4,13 +4,18 @@
 
 ## Содержание
 
-### Установка дистрибутива
-* [Загрузка дистрибутива из репозитория GitHub](installation/download.md)
-* [Распаковка дистрибутива, форматирование раздела и копирование на него системы](installation/unpack.md)
-* [Установка системы на ПК, загрузчика и правка fstab](installation/install_sys.md)
-* [Установка системы в Qemu/KVM](installation/install_qemu.md)
+* [Установка дистрибутива](installation/README.md)
+  * [Загрузка дистрибутива из репозитория GitHub](installation/download.md)
+  * [Распаковка дистрибутива, форматирование раздела и копирование на него системы](installation/unpack.md)
+  * [Установка системы на ПК, загрузчика и правка fstab](installation/install_sys.md)
+  * [Установка системы в Qemu/KVM](installation/install_qemu.md)
 
-### Управление пакетами
-* [Введение в порты](packages/intro_ports.md)
-* [Введение в cpkg](packages/intro_cpkg.md)
-* [Сборка бинарного пакета для cpkg](packages/makepkg.md)
+* [Управление пакетами](packages/README.md)
+  * [Введение в порты](packages/intro_ports.md)
+  * [Введение в cpkg](packages/intro_cpkg.md)
+  * [Сборка бинарного пакета для cpkg](packages/makepkg.md)
+
+<!-- Добавить инструкцию о создании порта -->
+
+* [Настройка дистрибутива](setup/README.md)
+  * [Настройка окружения](setup/shell.md)
