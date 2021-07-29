@@ -91,7 +91,7 @@ print_document_dial
 
 ```bash
 git add .
-git commit -m "Добавление пакета $PACKAGE_NAME"
+git commit -m "Добавление порта с пакетом $PACKAGE_NAME"
 
 # Отправка изменений себе на GitLab
 git push
