@@ -16,6 +16,7 @@
   * [Введение в порты](packages/intro_ports.md)
   * [Введение в cpkg](packages/intro_cpkg.md)
   * [Сборка бинарного пакета для cpkg](packages/makepkg.md)
+  * [Сборка порта](packages/makeport.sh)
 
 <!-- Добавить инструкцию о создании порта -->
 
