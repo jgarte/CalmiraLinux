@@ -67,3 +67,5 @@ FONT="cyr-sun16"
 ***
 
 [Назад - Настройка часов](clock.md)
+
+[Далее - Настройка inittab](inittab.md)
