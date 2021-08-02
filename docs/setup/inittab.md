@@ -29,6 +29,8 @@ $NUMBER:2345:respawn:/sbin/agetty tty$NUMBER 9600
 
 Замените `$NUMBER` на номер TTY.
 
+Переключаться между TTY можно сочетанием клавиш <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Fx</kbd> (где `x` - номер функционалной клавиши, равный номеру TTY), или <kbd>Alt</kbd> + <kbd>Стрелки влево/вправо</kbd>.
+
 ***
 
 [Назад - Настройка клавиатуры и шрифтов в TTY](console.md)
