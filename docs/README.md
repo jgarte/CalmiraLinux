@@ -31,6 +31,7 @@
   * [Настройка окружения](setup/shell.md)
   * [Настройка часов](setup/clock.md)
   * [Настройка клавиатуры и шрифта в TTY](setup/console.md)
+  * [Настройка inittab](setup/inittab.md)
   
 ***
 
