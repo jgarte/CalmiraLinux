@@ -25,7 +25,7 @@
   * [Введение в порты](packages/intro_ports.md)
   * [Введение в cpkg](packages/intro_cpkg.md)
   * [Сборка бинарного пакета для cpkg](packages/makepkg.md)
-  * [Сборка порта](packages/makeport.sh)
+  * [Сборка порта](packages/makeport.md)
 
 * [Настройка дистрибутива](setup/README.md)
   * [Настройка окружения](setup/shell.md)

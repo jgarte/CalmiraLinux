@@ -7,7 +7,7 @@
 * [Введение в порты](intro_ports.md)
 * [Введение в cpkg](intro_cpkg.md)
 * [Сборка бинарного пакета для cpkg](makepkg.md)
-* [Сборка порта](makeport.sh)
+* [Сборка порта](makeport.md)
 
 ***
 

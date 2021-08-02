@@ -192,3 +192,9 @@ tar -cf PKG $PACKAGE_NAME.txz -J
 ```
 
 Замените `$PACKAGE_NAME` на имя. Оно должно включать в себя имя и версию пакета, например: `some_1.0.txz`.
+
+***
+
+[Назад - Введение в cpkg](intro_cpkg.md)
+
+[Далее - Сборка порта](makeport.md)
