@@ -1,4 +1,40 @@
-<h1>Настройка окружения и конфигурационных файлов</h1>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+	<title>Настройка окружения</title>
+</head>
+<link rel="stylesheet" href="../../styles.css">
+<body style="margin: 0px 150px 0px 150px">
+
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0"
+cellspacing="0">
+<tr>
+<th colspan="3" align="center">Настройка Calmira GNU/Linux</th>
+</tr>
+
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0"
+cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top"><a href="../installation/exit.html"
+accesskey="P">Назад</a></td>
+<td width="34%" align="center" valign="top"><a href="index.html"
+accesskey="H">Домой</a></td>
+<td width="33%" align="right" valign="top"><a href="clock.html"
+accesskey="N">Далее</a></td>
+
+</tr>
+
+<tr>
+<td width="33%" align="left" valign="top">Завершение установки</td>
+<td width="34%" align="center" valign="top">&nbsp;</td>
+<td width="33%" align="right" valign="top">Настройка часов</td>
+</tr>
+</table>
+
+<hr align="LEFT" width="100%" />
+
+<h1>Настройка окружения и конфигурационных файлов<h1>
 
 <p>В данном разделе содержится описание конфигурационных файлов Calmira.</p>
 
@@ -42,18 +78,79 @@ PATH=/bin:/usr/bin
 
 <p>По умолчанию системное приглашение к вводу безцветное и непривлекательное. Если вы хотите переделать его, то отредактируйте значение переменной <em><tt>PS1</tt></em>. Возможно использование escape-последовательностей для изменения цвета приглашения. Так же дополнительные последовательности, из которых строится приглашение к вводу в консоль:</p>
 
-| Последовательность | Значение                                         | Последовательность | Значение |
-| `\a` | Издать звуковой сигнал                                         | `\@` | Текущее время в 12-часовом формате *АМ/РМ*       |
-| `\d` | Текущая дата в формате *день_недели месяц число*: *Mon May 16* | `\A` | Текущее время в 24-часовом формате *часы:минуты* |
-| `\h` | Имя локальной машины -- имя домена                             | `\r` | Имя пользователя                                 |
-| `\H` | Полное имя хоста                                               | `\v` | Номер версии командной оболочки                  |
-| `\j` | Число заданий, действующих в текущем терминале                 | `\V` | Номер версии и выпуска командной оболочки        |
-| `\l` | Имя текущего устр-ва терминала                                 | `\w` | Имя текущего рабочего каталога                   |
-| `\n` | Переход на новую строку                                        | `\W` | Последняя часть имени текущего рабочего каталога |
-| `\r` | Возврат каретки                                                | `\!` | Имя текущей команды в истории                    |
-| `\s` | Имя программы в командной оболочке                             | `\#` | Число команд, введённых в текущем сеансе         |
-| `\t` | Текущее время в 24-часовом формате                             | `\$` | Выводит `$`, если пользователь не является root, если же запуск оболочки от имени root, то выводит `#` |
-| `\T` | Текущее время в 12-часовом формате                             | `\[` и `\]` | Отмечает начало и конец (соотв.) последовательности непечатаемых символов |
+<table border=1>
+  <tr>
+    <th align="left">Последовательность</th>
+    <th align="left">Значение</th>
+    <th align="left">Последовательность</th>
+    <th align="left">Значение</th>
+  </tr>
+  <tr>
+    <td>\a</td>
+    <td>Издать звуковой сигнал</td>
+    <td>\@</td>
+    <td>Текущее время в 12-часовом формате <em>AM/PM</em></td>
+  </tr>
+  <tr>
+    <td>\d</td>
+    <td>Текущая дата в формате <em>день_недели месяц число</em>: <tt>Mon May 16</tt></td>
+    <td>\A</td>
+    <td>Текущее время в 24-часовом формате <em>часы:минуты</em></td>
+  </tr>
+  <tr>
+  	<td>\h</td>
+  	<td>Имя локальной машины -- имя домена</td>
+  	<td>\r</td>
+  	<td>Имя пользователя</td>
+  </tr>
+  <tr>
+  	<td>\H</td>
+  	<td>Полное имя хоста</td>
+  	<td>\v</td>
+  	<td>Номер версии командной оболочки</td>
+  </tr>
+  <tr>
+  	<td>\j</td>
+  	<td>Число заданий, действующих в текущем терминале</td>
+  	<td>\V</td>
+  	<td>Номер версии и выпуска командной оболочки</td>
+  </tr>
+  <tr>
+  	<td>\l</td>
+  	<td>Имя текущего устр-ва терминала</td>
+  	<td>\w</td>
+  	<td>Имя текущего рабочего каталога</td>
+  </tr>
+  <tr>
+  	<td>\n</td>
+  	<td>Переход на новую строку</td>
+  	<td>\W</td>
+  	<td>Последняя часть имени текущего рабочего каталога</td>
+  </tr>
+  <tr>
+  	<td>\r</td>
+  	<td>Возврат каретки</td>
+  	<td>\!</td>
+  	<td>Имя текущей команды в истории</td>
+  </tr>
+  <tr>
+  	<td>\s</td>
+  	<td>Имя программы в программной оболочке</td>
+  	<td>\#</td>
+  	<td>Число команд, введённых в текущем сеансе</td>
+  </tr>
+  	<td>\t</td>
+  	<td>Текущее время в 24-часовом формате</td>
+  	<td>\$</td>
+  	<td>Выводит <tt>$</tt>, если пользователь не является root, если это root, то выводит <tt>#</tt></td>
+  </tr>
+  <tr>
+  	<td>\T</td>
+  	<td>Текущее время в 12-часовом формате</td>
+  	<td>\[ и \]</td>
+  	<td>Отмечает начало и конец (соотв.) последовательности непечатаемых символов</td>
+  </tr>
+</table>
 
 <h2>Редактирование настроек bash</h2>
 
@@ -63,14 +160,12 @@ PATH=/bin:/usr/bin
 
 <p>В Calmira GNU/Linux по умолчанию используется редактор Vim. Его настройки расположены в файле <em><tt>/etc/vimrc</tt></em>. Строки:</p>
 
-<table border="1" width="100%" cellpadding="5"><colgroup>
-	<col style="background-color:#eeddcc">
-</colgroup>
+<table border="1" width="100%" cellpadding="5">
 <tr><td>
 <pre>
 set nu
 set lbr
-</pre></td></tr></code>
+</pre></td></tr></table>
 
 <p>Предназначены для отображения номеров строк сбоку и переноса строк по словам соотв.</p>
 
@@ -78,9 +173,7 @@ set lbr
 
 <p>В файле <em><tt>/etc/fstab</tt></em> приведены базовые настройки монтирования файловых систем. Не изменяйте следующие строки, без которых система не сможет загрузиться корректно:</p>
 
-<table border="1" width="100%" cellpadding="5"><colgroup>
-	<col style="background-color:#eeddcc">
-</colgroup>
+<table border="1" width="100%" cellpadding="5">
 <tr><td>
 <pre>
 proc           /proc        proc     nosuid,noexec,nodev 0     0
@@ -101,3 +194,25 @@ echo "calmira_pc" > /etc/hostname
 </pre></td></tr></table>
 
 Замените <tt>calmira_pc</tt> на имя хоста.
+
+<hr align="LEFT" width="100%" />
+
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0"
+cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top"><a href="../installation/exit.html"
+accesskey="P">Назад</a></td>
+<td width="34%" align="center" valign="top"><a href="index.html"
+accesskey="H">Домой</a></td>
+<td width="33%" align="right" valign="top"><a href="clock.html"
+accesskey="N">Далее</a></td>
+
+</tr>
+
+<tr>
+<td width="33%" align="left" valign="top">Завершение установки</td>
+<td width="34%" align="center" valign="top">&nbsp;</td>
+<td width="33%" align="right" valign="top">Настройка часов</td>
+</tr>
+</table><br>
+</body></html>
