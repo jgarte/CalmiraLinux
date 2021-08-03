@@ -41,12 +41,17 @@ accesskey="N">Далее</a></td>
 
 <p>Для того, чтобы выйти из chroot и отмонтировать виртуальные ФС ядра, выполните:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 logout
 
 sudo umount /mnt/calmira_system/dev{/pts,}
 sudo umount /mnt/calmira_system/{sys,proc,run}
-</code></pre>
+</pre>
+</td></tr></table>
 
 <h2>Размонтирование</h2>
 
@@ -54,9 +59,14 @@ sudo umount /mnt/calmira_system/{sys,proc,run}
 
 <h3>При установке в раздел</h3>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 sudo umount /dev/sdX
-</pre></code>
+</pre>
+</td></tr></table>
 
 <p>Замените <em><tt>sdX</tt></em> на метку раздела.</p>
 
@@ -68,19 +78,28 @@ sudo umount /dev/sdX
 	<li>Отключите модуль ядра <tt>nbd</tt>.</li>
 </ol>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 sudo umount /mnt/calmira_system
 sudo qemu-nbd --disconnect /dev/nbd0
 sudo rmmod nbd
-</code></pre>
+</pre>
+</td></tr></table>
 
 <h2>Перезагрузка</h2>
 
 <p>Введите:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 sudo reboot
-</code></pre>
+<pre></td></tr></table>
 
 <p>Для перезагрузки.</p>
 

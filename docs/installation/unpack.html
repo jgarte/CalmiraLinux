@@ -42,9 +42,13 @@ accesskey="N">Далее</a></td>
 
 <p>Так как это squashfs-образ, то распаковка производится утилитой <tt>unsquashfs</tt> из состава пакета <tt>squashfs-tools</tt>. Пример использования:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 sudo unsquashfs calmira-1.1.sqsh
-</code></pre>
+</pre></td></tr></table>
 
 <p>Пакет <tt>squashfs-tools</tt> может быть скомпилирован в Calmira GNU/Linux из системы портов. На других системах может быть установлен из бинарного пакета. Учитывайте то, что, например, на Fedora Linux (и других rpm-дистрибутивах) этот пакет НЕ собирается с поддержкой формата сжатия <em><tt>xz</tt></em>. Вам необходимо будет пересобрать его с поддержкой этого формата сжатия, так как образ с дистрибутивом Calmira сжимается с помощью xz.</p>
 
@@ -52,9 +56,13 @@ sudo unsquashfs calmira-1.1.sqsh
 
 <p>Файлы распакуются в директорию <tt>squashfs-root</tt>. Введите:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 cd squashfs-root
-</code></pre>
+</pre></td></tr></table>
 
 <hr align="LEFT" width="100%" />
 

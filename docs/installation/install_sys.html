@@ -44,18 +44,26 @@ accesskey="N">Далее</a></td>
 
 <p>Минимальный раздел корневого раздела должен равняться 1.5 Гб. Этого вполне хватит для установки дистрибутива и хранения некоторых пользовательских файлов (например, документов). Отформатируйте раздел в файловую систему <em><tt>ext4</tt></em>:</p>
 
-<p><pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 sudo mkfs.ext4 /dev/sdX
-</code></pre></p>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>sdX</tt></em> на метку раздела.</p>
 
 <p>Теперь смонтируйте этот раздел в <em><tt>/mnt/calmira_system</tt></em>:</p>
 
-<p><pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 sudo mkdir /mnt/calmira_system
 sudo mount -v /dev/sdX /mnt/calmira_system
-</code></pre></p>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>sdX</tt></em> на метку раздела.</p>
 
@@ -63,15 +71,23 @@ sudo mount -v /dev/sdX /mnt/calmira_system
 
 <p>После того, как смонтировали раздел, скопируйте на него данные из распакованного образа дистрибутива. Во-первых убедитесь, что находитесь в директории <tt>squashfs-root</tt>:</p>
 
-<p><pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 pwd
-</code></pre></p>
+</pre></td></tr></table>
 
 <p>Если всё верно, приступайте к копированию:</p>
 
-<p><pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 sudo cp -rvxa * /mnt/calmira_system/
-</code></pre></p>
+</pre></td></tr></table>
 
 <p>Во время копирования на экран будут выведены скопированные файлы. Внимательно прочитайте вывод: в нём не должно содержаться <em>error</em>, <em>fail</em> и пр. Если вы не хотите видеть подробный результат о каждом скопированном файле, то уберите ключ <tt>-v</tt> из команды. В таком случае на экран будут выведены сообщения об ошибках и предупреждения (если они есть).</p>
 

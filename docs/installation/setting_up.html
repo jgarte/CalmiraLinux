@@ -44,7 +44,11 @@ accesskey="N">Далее</a></td>
 
 <blockquote>Первым делом вы должны смонтировать раздел жёсткого диска или образ виртуального диска qcow2 в вашу систему. Точка монтирования: <em><tt>/mnt/calmira_system</tt></em>. О монтировании сказано в инструкциях по копированию системы на раздел жёсткого диска (<a href="install_sys.md" class="custom-cld">здесь</a>), либо в виртуальную машину (<a href="install_qemu.md" class="custom-cld">здесь</a>).</blockquote>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 for DIR in "dev" "dev/pts" "proc" "sys"; do
 	sudo mount -v --bind /$DIR /mnt/calmira_system/$DIR
 done
@@ -58,7 +62,7 @@ chroot "/mnt/calmira_system" /usr/bin/env -i \
     PS1='(chroot) \u:\w\$ '             \
     PATH=/bin:/sbin:/usr/bin:/usr/sbin  \
     /bin/bash --login
-</code></pre>
+</pre></td></tr></table>
 
 <p>Вы окажетесь в скопированной Calmira GNU/Linux. Вы изолированы от хост-системы, и можете настраивать дистрибутив так, как вам удобно.</p>
 
@@ -85,7 +89,11 @@ chroot "/mnt/calmira_system" /usr/bin/env -i \
 
 <p>Создайте файл fstab:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 cat > /etc/fstab << "EOF"
 # Begin /etc/fstab
 
@@ -98,23 +106,31 @@ devpts         /dev/pts     devpts   gid=5,mode=620      0     0
 tmpfs          /run         tmpfs    defaults            0     0
 devtmpfs       /dev         devtmpfs mode=0755,nosuid    0     0
 EOF
-</code></pre>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>/dev/sdX</tt></em> из первой строки fstab на метку корневого раздела, на который устанавливалась система. Например, <em><tt>/dev/sda3</tt></em>. Если вы устанавливаете систему в виртуальную машину, то метка корневого раздела будет называться примерно так: <em><tt>/dev/nbd0pX</tt></em>, где <em>X</em> - номер нужного раздела.</p>
 
 <p>Если у вас UEFI, то добавьте соотв. запись в fstab:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 echo "/dev/sdN     /boot/efi      vfat    umask=0077           0     0" >> /etc/fstab
-</code></pre>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>/dev/sdN</tt></em> из команды выше на нужную метку раздела EFI. Повторимся, что его объём жолжен быть равен 256 Мб, файловая система - Fat32 (vfat).</p>
 
 <p>Если вы используете swap-раздел, то и его пропишите в fstab:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 echo "/dev/sdM     swap         swap     pri=1               0     0" >> /etc/fstab
-</code></pre>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>/dev/sdM</tt></em> из команды выше на нужную метку раздела с подкачкой (swap).</p>
 
@@ -132,27 +148,40 @@ echo "/dev/sdM     swap         swap     pri=1               0     0" >> /etc/fs
 
 <p>Узнать UUID для нужного раздела можно, выполнив:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 blkid /dev/sdX
-</code></pre>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>/dev/sdX</tt></em> на метку корневого раздела. Например, <em><tt>/dev/sda3</tt></em>.</p>
 
 <p>Вывод будет примерно таким:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5">
+<tr><td>
+<pre>
 /dev/sda3: UUID="1ed63fa7-e4c9-43cc-96f4-9f951224a338" BLOCK_SIZE="4096" TYPE="ext4" PARTLABEL="Calmira data" PARTUUID="56ae06ac-dbd8-11eb-96fc-e8039ae29c93"
-</code></pre>
+</pre></td></tr></table>
+</td></tr></table>
 
 <p>Вам понадобится что-то вроде:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5">
+<tr><td>
+<pre>
 UUID="1ed63fa7-e4c9-43cc-96f4-9f951224a338"
-</code></pre>
+</pre></td></tr></table>
 
 <p>Запишите эту строку вместо <em><tt>/dev/sdX</tt></em> в fstab (но без кавычек). Напимер, fstab с UUID корневого раздела вместо его метки будет выглядеть так:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 cat > /etc/fstab << "EOF"
 # Begin /etc/fstab
 
@@ -165,7 +194,7 @@ devpts                                         /dev/pts     devpts   gid=5,mode=
 tmpfs                                          /run         tmpfs    defaults            0     0
 devtmpfs                                       /dev         devtmpfs mode=0755,nosuid    0     0
 EOF
-</code></pre>
+</pre></td></tr></table>
 
 <p>Замените <tt>UUID=1ed63fa7-e4c9-43cc-96f4-9f951224a338</tt> на полученное значение.</p>
 
@@ -179,23 +208,31 @@ EOF
 
 <p>Для того, чтобы установить загрузчик, выполните:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 grub-install /dev/sdX
-</code></pre>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>sdX</tt></em> на метку диска. Например, <em><tt>/dev/sda</tt></em> или <em><tt>/dev/nbd0</tt></em>.</p>
 
 <blockquote><strong>ЗАМЕЧАНИЕ.</strong> В предыдущих инструкциях нужно было заменить <tt>sdX</tt> на метку раздела (например, на <tt>sda3</tt>). Сейчас же нужно заменить на метку ДИСКА (например, <tt>sda</tt>). Полученная команда будет <tt>grub-install /dev/sda</tt>, если вы выбрали установку загрузчика на этот диск. НЕ ВЫБИРАЙТЕ установку в раздел (<tt>sda3</tt>) - ни к чему это не приведёт.</blockquote>
 
-<h3>Установка загрузчика Legecy BIOS</h3>
+<h3>Установка загрузчика Legacy BIOS</h3>
 
 <p>Если вы по каким-то причинам используете Legacy BIOS, либо же обычный BIOS, но у жёсткого диска таблица разделов GPT, то для установки загрузчика вам необходимо иметь раздел объёмом 1 Мб без файловой системы в начале диска. Если у вас на ПК уже установлена какая-либо ОС, то этот раздел должен присутствовать.</p>
 
 <p>Установите загрузчик командой:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 grub-install /dev/sdX
-</code></pre>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>sdX</tt></em> на метку диска. Например, <em><tt>/dev/sda</tt></em> или <em><tt>/dev/nbd0</tt></em>.</p>
 
@@ -216,10 +253,14 @@ grub-install /dev/sdX
 
 <p>Для этого выполнить:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 cd /usr/ports/$КАТЕГОРИЯ/$ПАКЕТ
 ./install
-</code></pre>
+</pre></td></tr></table>
 
 <ul>
 	<li><em>$КАТЕГОРИЯ</em> - категория, в котором располагается порт. Например, <em><tt>base/grub-efi</tt></em> или <em><tt>general_libs</tt></em>;</li>
@@ -228,9 +269,13 @@ cd /usr/ports/$КАТЕГОРИЯ/$ПАКЕТ
 
 <p>После чего можно устанавливать grub:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 grub-install /dev/sdX
-</code></pre>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>sdX</tt></em> на метку диска. Например, <em><tt>/dev/sda</tt></em> или <em><tt>/dev/nbd0</tt></em>.</p>
 
@@ -240,7 +285,11 @@ grub-install /dev/sdX
 
 <p>Создайте конфиг следующей командой:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 cat > /boot/grub/grub.cfg << "EOF"
 # Begin /boot/grub/grub.cfg
 set default=0
@@ -253,17 +302,21 @@ menuentry "Calmira LX4 1.1 GNU/Linux, Linux" {
         linux /boot/vmlinuz root=/dev/sda2 ro
 }
 EOF
-</code></pre>
+</pre></td></tr></table>
 
 <p>Строка <em><tt>set timeout=5</tt></em> устанавливает таймаут (время ожидания автоматической загрузки системы, если пользователь не выбрал ни одного элемента из загрузочного меню GRUB), равный пяти секундам. Измените это значение при необходимости.</p>
 
 <p>Строка <em><tt>set root=(hd0,2)</tt></em> устанавливает нужный жёсткий диск. Если вы не знаете какой выбрать, наберите в консоли GRUB строки:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 ls
 
 ls ($DISK)/boot/grub
-</code></pre>
+</pre></td></tr></table>
 
 <p>Первая команда выдаст список дисков, а вторая выдаст список файлов загрузчика, если выбран нужный диск с системой (замените <em>$DISK</em> на нужный диск из вывода первой команды).</p>
 

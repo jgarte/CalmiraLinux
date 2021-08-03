@@ -50,7 +50,11 @@ accesskey="N">Далее</a></td>
 
 <p>Теперь нужно скопировать распакованный в <a href="unpack.html">этой</a> инструкции дистрибутив в только что созданный образ жёсткого диска (образ сгенерировался во время создания виртуальной машины). Нужно смонтировать этот образ. Для этого подключите модуль `qemu-nbd` и смонтируйте образ ЖД:</p>
 
-<p><pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 # Подключение модуля ядра:
 sudo modprobe nbd max_part=8
 
@@ -59,7 +63,7 @@ sudo qemu-nbd --connect=/dev/nbd0 /var/lib/libvirt/images/$NAME.qcow2
 
 sudo fdisk /dev/nbd0 -l
 mkdir /mnt/calmira_system
-</code></pre></p>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>$NAME</tt></em> на имя виртуальной машины (и, по совместительству, имя диска).</p>
 
@@ -67,9 +71,13 @@ mkdir /mnt/calmira_system
 
 <p>Необходимо разметить новый "жёсткий диск". Для этого выполните:</p>
 
-<p><pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 sudo cfdisk /dev/nbd0
-</code></pre></p>
+</pre></td></tr></table>
 
 <p><tt>cfdisk</tt> запросит у вас, какую таблицу разделов выбрать. Выбирайте <em><tt>mbr</tt></em> (она же <em><tt>dos</tt></em>), либо новомодную <em><tt>gpt</tt></em>. В данном случае нет никакой разницы в выборе. Советуется выбрать <em><tt>mbr</tt></em> (<em><tt>dos</tt></em>).</p>
 
@@ -81,17 +89,25 @@ sudo cfdisk /dev/nbd0
 
 <p>После разметки отформатируйте нужные разделы. Для форматирования корневого раздела выполните:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 sudo mkfs.ext4 /dev/nbd0pX
-</code></pre>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>nbd0pX</tt></em> на нужную метку раздела. Обычно это <em><tt>nbd0p1</tt></em>, если таблица разделов <em><tt>mbr</tt></em> (<em><tt>dos</tt></em>), или <em><tt>nbd0p2</tt></em>, если таблица разделов - <em><tt>gpt</tt></em>.</p>
 
 <p>Для форматирования подкачки (если вы её создали):</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 mkswap /dev/nbd0pX
-</code></pre>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>nbd0pX</tt></em> на нужную метку раздела. Обычно это <em><tt>nbd0p2</tt></em>, если таблица разделов <em><tt>mbr</tt></em> (<em><tt>dos</tt></em>), или <em><tt>nbd0p3</tt></em>, если таблица разделов - <em><tt>gpt</tt></em>.</p>
 
@@ -99,23 +115,35 @@ mkswap /dev/nbd0pX
 
 <p>Смонтируйте корневой раздел:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 sudo mount /dev/nbd0pX /mnt/calmira_system
-</code></pre>
+</pre></td></tr></table>
 
 <p>Замените <em><tt>nbd0pX</tt></em> на нужную метку раздела. Обычно это <em><tt>nbd0p1</tt></em>, если таблица разделов <em><tt>mbr</tt></em> (<em><tt>dos</tt></em>), или <em><tt>nbd0p2</tt></em>, если таблица разделов - <em><tt>gpt</tt></em>.</p>
 
 <p>После того, как смонтировали раздел, скопируйте на него данные из распакованного образа дистрибутива. Во-первых убедитесь, что находитесь в директории <tt>squashfs-root</tt>:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 pwd
-</code></pre>
+</pre></td></tr></table>
 
 <p>Если всё верно, приступайте к копированию:</p>
 
-<pre><code>
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
 sudo cp -rvxa * /mnt/calmira_system/
-</code></pre>
+</pre></td></tr></table>
 
 <p>Во время копирования на экран будут выведены скопированные файлы. Внимательно прочитайте вывод: в нём не должно содержаться <em>error</em>, <em>fail</em> и пр. Если вы не хотите видеть подробный результат о каждом скопированном файле, то уберите ключ <tt>-v</tt> из команды. В таком случае на экран будут выведены сообщения об ошибках и предупреждения (если они есть).</p>
 
