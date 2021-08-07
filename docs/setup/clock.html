@@ -38,6 +38,8 @@ accesskey="N">Далее</a></td>
 
 <p>При загрузке считывается информация из аппаратных часов - CMOS. Программно нельзя определить, какой часовой пояс используют часы CMOS, однако вы можете выполнить команду <tt>hwclock --localtime --show</tt> и сравнить результат с местным временем. Если он не совпадает - ваши часы, скорее всего, используют UTC.</p>
 
+<h2>3.2.1. <tt>/etc/sysconfig/clock</tt></h2>
+
 <p>Создайте нужный файл, определяющий, использует ли CMOS UTC. Если не использует, то замените значение переменной <em><tt>UTC</tt></em> на 0.</p>
 
 <table border="1" width="100%" cellpadding="5"><colgroup>
@@ -57,6 +59,30 @@ CLOCKPARAMS=
 # End /etc/sysconfig/clock
 EOF
 </pre></td></tr></table>
+
+<h2>3.2.2. Выбор часового пояса.</h2>
+
+<p>Для выбора нужного часового пояса выполните следующий скрипт:</p>
+
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
+tzselect
+</pre></td></tr></table>
+
+<p>Для сохранения нужного часового пояса выполните:</p>
+
+<table border="1" width="100%" cellpadding="5"><colgroup>
+	<col style="background-color:#eeddcc">
+</colgroup>
+<tr><td>
+<pre>
+ln -svf /usr/share/zoneinfo/&lt;xxx&gt; /etc/localtime
+</pre></td></tr></table>
+
+<p>Замените <tt>&lt;xxx&gt;</tt> на ваш часовой пояс. Это значение было получено из вывода <tt>tzselect</tt>.</p>
 
 <hr align="LEFT" width="100%" />
 
