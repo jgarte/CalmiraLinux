@@ -58,17 +58,17 @@ accesskey="H">Домой</a></td>
 <table border="1" width="100%" cellpadding="5">
 <tr><td>
 <pre>
-└── some_package.txz
-    └── PKG
-        ├── config.sh
-        ├── {post,pre}inst.sh
-        ├── {post,pre}remove.sh
-        ├── metadata.xz
-        └── pkg
-            ├── usr
-            ├── etc
-            ├── var
-            └── ...
+some_package.txz  # <<-- Архив с пакетом
+└── PKG           # <<-- Директория, в котором находится пакет
+   ├── config.sh
+   ├── {post,pre}inst.sh
+   ├── {post,pre}remove.sh
+   ├── metadata.xz
+   └── pkg        # <<-- Директория, в котором находятся данные пакета
+      ├── usr
+      ├── etc
+      ├── var
+      └── ...
 </pre></td></tr></table>
 
 <p>В случае, если это пакет с исходным кодом (port-пакет), в директории <em>PKG</em> наличие файла <tt>port.sh</tt> <strong>обязательно</strong>. В нём описываются инструкции по сборке и установке пакета.</p>
