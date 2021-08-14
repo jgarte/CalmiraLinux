@@ -62,14 +62,14 @@ cd calmira_ports
 <table border="1" width="100%" cellpadding="5">
 <tr><td>
 <pre>
-КАТЕГОРИЯ
-├── makeport.sh
-└── ИМЯ_ПАКЕТА
-    ├── install
-    ├── install_doc.sh
-    ├── setup.html
-    ├── setup.sh
-    └── config.sh
+КАТЕГОРИЯ              &lt;название категории брать из <a href="intro_ports.html">Введения в порты</a>&gt;
+├── makeport.sh        &lt;скрипт для автоматизации создания порта&gt;
+└── ИМЯ_ПАКЕТА         &lt;указывается как аргумент скрипту <em>makeport.sh</em>&gt;
+    ├── install        &lt;обязательно&gt;
+    ├── install_doc.sh &lt;опционально&gt;
+    ├── setup.html     &lt;опционально&gt;
+    ├── setup.sh       &lt;опционально&gt;
+    └── config.sh      &lt;опционально&gt;
 </pre></td></tr></table>
 
 <p>Здесь приведена общая структура системы портов. <tt>КАТЕГОРИЯ</tt> и <tt>ИМЯ_ПАКЕТА</tt> - директории. КАТЕГОРИЯ - имя категории, в которую входит пакет с именем ИМЯ_ПАКЕТА.</p>
