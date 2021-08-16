@@ -1,11 +1,19 @@
 #!/bin/bash
 
-tar -xf xz-5.2.5.tar.xz
-cd xz-5.2.5
+NAME="xz"
+VERSION="5.2.5"
+
+tar -xf $NAME-$VERSION.tar.xz
+cd $NAME-$VERSION
 
 ./configure --prefix=/usr    \
             --disable-static
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check 2>&1 | tee -a logs/$NAME.log
+fi
+
 make install
 
 mv -v /usr/bin/{lzma,unlzma,lzcat,xz,unxz,xzcat} /bin
