@@ -22,7 +22,7 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 			"tar" "man-db" "texinfo" "popt" "freetype" "wget" "libtasn1"  \
 			"p11-kit" "make-ca" "vim" "eudev" "procps" "util-linux"       \
 			"sysklogd" "sysvinit" "bootscripts" "e2fsprogs" "grub" "linux"; do
-	echo -e "\e[1;35mУстановка пакета \e[0m\e[1m$SCRIPT\e[0m\e[1;35m...\e[0m"
+	echo -e "\a\e[1;35mУстановка пакета \e[0m\e[1m$SCRIPT\e[0m\e[1;35m...\e[0m"
 
 	if [ -f "$SCRIPT" ]; then
 		chmod +x $SCRIPT
@@ -30,7 +30,7 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 		./$SCRIPT
 	else
 		echo "$SCRIPT: FAIL" >> .auto_log
-		echo -e "\e[1;31mОШИБКА: пакета '$SCRIPT' не существует!\e[0m"
+		echo -e "\a\e[1;31mОШИБКА: пакета '$SCRIPT' не существует!\e[0m"
 		echo -n "Прервать сборку (Y/n) "
 		read run
 
