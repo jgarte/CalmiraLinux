@@ -21,7 +21,7 @@ for SCRIPT in $PACKAGES; do
 		chmod +x packages/$SCRIPT
 		./packages/$SCRIPT
 	else
-		echo -e "\e[1;31mОШИБКА: пакета $SCRIPT не существует!\e[0m"
+		echo -e "\e[1;31mОШИБКА: пакета '$SCRIPT' не существует!\e[0m"
 		echo -n "Прервать сборку (Y/n) "
 		read run
 
