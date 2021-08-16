@@ -1,10 +1,18 @@
 #!/bin/bash
 
-tar -xf zlib-ng-2.0.3.tar.gz
-cd zlib-ng-2.0.3
+NAME="zlib-ng"
+VERSION="2.0.3"
+
+tar -xf $NAME-$VERSION.tar.gz
+cd $NAME-$VERSION
 
 ./configure --prefix=/usr --zlib-compat --native
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check 2>&1 | tee -a logs/$NAME.log
+fi
+
 make install
 rm -fv /usr/lib/libz.a
 
