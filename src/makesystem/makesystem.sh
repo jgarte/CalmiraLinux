@@ -15,10 +15,18 @@ function log_msg() {
 	echo "$(date) $1" >> /var/log/system_building.log
 }
 
+## Script ##
+
 # Check root
 if [ $(whoami) != "root" ]; then
 	echo "Ошибка: вы должны запустить скрипт $0 от имени root!"
 	exit 1
+fi
+
+# Setting up testing mode
+if [ $1 = "--enable-test" ]; then
+	echo "Включен режим тестирования пакетов"
+	export TEST_MODE="enable"
 fi
 
 # Сборка и установка пакета
@@ -60,6 +68,8 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 		fi
 	fi
 done
+
+unset TEST_MODE
 
 log_msg "END SYSTEM BUILDING"
 header_msg "Система собрана. Если есть ошибки, исправьте их."
