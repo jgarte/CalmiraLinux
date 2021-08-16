@@ -1,9 +1,12 @@
 #!/bin/bash
 
-tar -xf glibc-2.33.tar.xz
-cd glibc-2.33
+NAME="glibc"
+VERSION="2.33"
 
-patch -Np1 -i ../glibc-2.33-fhs-1.patch
+tar -xf $NAME-$VERSION.tar.xz
+cd $NAME-$VERSION
+
+patch -Np1 -i ../$NAME-$VERSION-fhs-1.patch
 sed -e '402a\      *result = local->data.services[database_index];' \
     -i nss/nss_database.c
 
@@ -21,6 +24,10 @@ make
 
 ln -sfnv $PWD/elf/ld-linux-x86-64.so.2 /lib
 sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile
+
+if [ $TEST_MODE = "enable" ]; then
+	make check 2>&1 | tee -a logs/$NAME.log
+fi
 
 make install
 cp -v ../nscd/nscd.conf /etc/nscd.conf
