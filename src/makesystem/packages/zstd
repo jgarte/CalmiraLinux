@@ -1,9 +1,17 @@
 #!/bin/bash
 
-tar -xf zstd-1.5.0.tar.gz
-cd zstd-1.5.0
+NAME="zstd"
+VERSION="1.5.0"
+
+tar -xf $NAME-$VERSION.tar.gz
+cd $NAME-$VERSION
 
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check 2>&1 | tee logs/$NAME.log
+fi
+
 make prefix=/usr install
 rm -v /usr/lib/libzstd.a
 
