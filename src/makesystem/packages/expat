@@ -1,0 +1,10 @@
+#!/bin/bash
+
+tar -xf expat-2.4.1.tar.xz
+cd expat-2.4.1
+
+./configure --prefix=/usr    \
+            --disable-static
+            
+make
+make install

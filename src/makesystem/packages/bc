@@ -1,0 +1,8 @@
+#!/bin/bash
+
+tar -xf bc-4.0.2.tar.xz
+cd bc-4.0.2
+
+CC=gcc ./configure --prefix=/usr -G -O3
+make
+make install

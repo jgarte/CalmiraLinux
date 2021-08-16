@@ -1,0 +1,8 @@
+#!/bin/bash
+
+tar -xf check-0.15.2.tar.gz
+cd check-0.15.2
+
+./configure --prefix=/usr
+make
+make docdir=/usr/share/doc/check install

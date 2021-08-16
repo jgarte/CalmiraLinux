@@ -1,0 +1,9 @@
+#!/bin/bash
+
+tar -xf bison-3.7.6.tar.xz
+cd bison-3.7.6
+
+./configure --prefix=/usr --docdir=/usr/share/doc/bison
+
+make
+make install

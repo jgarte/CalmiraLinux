@@ -1,0 +1,14 @@
+#!/bin/bash
+
+tar -xf openssl-1.1.1k.tar.gz
+cd openssl-1.1.1k
+
+./config --prefix=/usr         \
+         --openssldir=/etc/ssl \
+         --libdir=lib          \
+         shared                \
+         zlib-dynamic
+         
+make
+sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
+make MANSUFFIX=ssl install

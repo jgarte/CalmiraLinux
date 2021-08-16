@@ -1,0 +1,15 @@
+#!/bin/bash
+
+tar -xf acl-2.3.1.tar.xz
+cd acl-2.3.1
+
+./configure --prefix=/usr         \
+            --bindir=/bin         \
+            --disable-static      \
+            --libexecdir=/usr/lib
+
+make
+make install
+
+mv -v /usr/lib/libacl.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+tar -xf popt-1.18.tar.gz
+cd popt-1.18
+
+./configure --prefix=/usr    \
+            --disable-static
+            
+make
+make install
