@@ -1,8 +1,16 @@
 #!/bin/bash
 
-tar -xf bc-4.0.2.tar.xz
-cd bc-4.0.2
+NAME="bc"
+VERSION="4.0.2"
+
+tar -xf $NAME-$VERSION.tar.xz
+cd $NAME-$VERSION
 
 CC=gcc ./configure --prefix=/usr -G -O3
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make test 2>&1 |tee -a log/$NAME.log
+fi
+
 make install

@@ -1,8 +1,16 @@
 #!/bin/bash
 
-tar -xf m4-1.4.19.tar.xz
-cd m4-1.4.19
+NAME="m4"
+VERSION="1.4.19"
+
+tar -xf $NAME-$VERSION.tar.xz
+cd $NAME-$VERSION
 
 ./configure --prefix=/usr
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check 2>&1 | tee -a log/$NAME.log
+fi
+
 make install

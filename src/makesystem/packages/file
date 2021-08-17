@@ -1,8 +1,16 @@
 #!/bin/bash
 
-tar -xf file-5.40.tar.gz;
-cd file-5.40
+NAME="file"
+VERSION="5.40"
+
+tar -xf $NAME-$VERSION.tar.gz;
+cd $VERSION-$VERSION
 
 ./configure --prefix=/usr
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check 2>&1 |tee -a log/$NAME.log
+fi
+
 make install

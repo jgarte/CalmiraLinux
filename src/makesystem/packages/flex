@@ -1,13 +1,21 @@
 #!/bin/bash
 
-tar -xf flex-2.6.4.tar.gz
-cd flex-2.6.4
+NAME="flex"
+VERSION="2.6.4"
+
+tar -xf $NAME-$VERSION.tar.gz
+cd $NAME-$VERSION
 
 ./configure --prefix=/usr \
             --docdir=/usr/share/doc/flex \
             --disable-static
 
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check 2>&1 |tee -a log/$NAME.log
+fi
+
 make install
 
 ln -sv flex /usr/bin/lex
