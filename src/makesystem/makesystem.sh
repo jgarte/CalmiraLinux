@@ -29,7 +29,7 @@ if [ $1 = "--enable-test" ]; then
 	export TEST_MODE="enable"
 fi
 
-# Сборка и установка пакета
+# Сборка и установка пакетов
 header_msg "Сборка базовой системы"
 log_msg "START SYSTEM BUILDING"
 
@@ -44,7 +44,8 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 			"less" "gzip" "iproute2" "kbd" "libpipeline" "make" "patch"   \
 			"tar" "man-db" "texinfo" "popt" "freetype" "wget" "libtasn1"  \
 			"p11-kit" "make-ca" "vim" "eudev" "procps" "util-linux"       \
-			"sysklogd" "sysvinit" "bootscripts" "e2fsprogs" "grub" "linux"; do
+			"sysklogd" "sysvinit" "bootscripts" "e2fsprogs" "grub"        \
+			"curl" "git" "pciutils" "linux"; do
 	echo -e "\a\e[1;35mУстановка пакета \e[0m\e[1m$SCRIPT\e[0m\e[1;35m...\e[0m"
 
 	if [ -f "packages/$SCRIPT" ]; then
