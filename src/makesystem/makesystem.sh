@@ -4,6 +4,7 @@
 # Для Calmira LX4 1.1 GNU/Linux
 
 ## Functions ##
+source locale.sh
 
 # Заголовок
 function header_msg() {
@@ -45,13 +46,13 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 			"tar" "man-db" "texinfo" "popt" "freetype" "wget" "libtasn1"  \
 			"p11-kit" "make-ca" "vim" "eudev" "procps" "util-linux"       \
 			"sysklogd" "sysvinit" "bootscripts" "e2fsprogs" "grub"        \
-			"curl" "git" "pciutils" "linux"; do
+			"curl" "git" "pciutils" "which" "linux"; do
 	echo -e "\a\e[1;35mУстановка пакета \e[0m\e[1m$SCRIPT\e[0m\e[1;35m...\e[0m"
 
 	if [ -f "packages/$SCRIPT" ]; then
 		chmod +x packages/$SCRIPT
 		log_msg "found package $SCRIPT"
-		if packages/$SCRIPT; then
+		if packages/$SCRIPT  2>&1 |tee -a /var/log/$SCRIPT-build.log; then
 			echo -e "\a\e[1m$SCRIPT\e[0m\e[1;35m $OK_MSG"
 			log_msg "$SCRIPT: OK"
 		else

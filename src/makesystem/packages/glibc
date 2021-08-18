@@ -26,7 +26,7 @@ ln -sfnv $PWD/elf/ld-linux-x86-64.so.2 /lib
 sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile
 
 if [ $TEST_MODE = "enable" ]; then
-	make check 2>&1 | tee -a logs/$NAME.log
+	make check
 fi
 
 make install

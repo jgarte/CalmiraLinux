@@ -10,7 +10,7 @@ cd $NAME-$VERSION
 make
 
 if [ $TEST_MODE = "enable" ]; then
-	make check 2>&1 | tee -a logs/$NAME.log
+	make check
 fi
 
 make install

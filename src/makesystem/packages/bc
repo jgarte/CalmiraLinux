@@ -10,7 +10,7 @@ CC=gcc ./configure --prefix=/usr -G -O3
 make
 
 if [ $TEST_MODE = "enable" ]; then
-	make test 2>&1 |tee -a log/$NAME.log
+	make test
 fi
 
 make install
