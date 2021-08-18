@@ -56,8 +56,10 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 			echo -e "\a\e[1m$SCRIPT\e[0m\e[1;35m $OK_MSG"
 			log_msg "$SCRIPT: OK"
 		else
-			echo -e "\a\e[1m$SCRIPT\e[0m\e[1;31m $FAIL_MSG"
+			echo -e "\a\a\e[1m$SCRIPT\e[0m\e[1;31m $FAIL_MSG"
+			echo -n "Завершить сборку (y/n)? "
 			read run
+			
 			if [ $run = "Y" ] || [ $run = "y" ]; then
 				echo "Выход с кодом завершения 1"
 				exit 1
@@ -70,7 +72,7 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 		fi
 	else
 		log_msg "$SCRIPT: FAIL: doesn't exists"
-		echo -e "\a\e[1;31mОШИБКА: пакета '$SCRIPT' не существует!\e[0m"
+		echo -e "\a\a\e[1;31mОШИБКА: пакета '$SCRIPT' не существует!\e[0m"
 		echo -n "Прервать сборку (Y/n) "
 		read run
 
