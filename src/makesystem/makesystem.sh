@@ -51,7 +51,22 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 	if [ -f "packages/$SCRIPT" ]; then
 		chmod +x packages/$SCRIPT
 		log_msg "found package $SCRIPT"
-		packages/$SCRIPT
+		if packages/$SCRIPT; then
+			echo -e "\a\e[1m$SCRIPT\e[0m\e[1;35m $OK_MSG"
+			log_msg "$SCRIPT: OK"
+		else
+			echo -e "\a\e[1m$SCRIPT\e[0m\e[1;31m $FAIL_MSG"
+			read run
+			if [ $run = "Y" ] || [ $run = "y" ]; then
+				echo "Выход с кодом завершения 1"
+				exit 1
+			elif [ $run = "N" ] || [ $run = "n" ]; then
+				echo -e "\e[1;31mПродолжается сборка. Работа конечной системы и корректность дальнейшей работы не гарантируется.\e[0m"
+			else
+				echo "Неправильный ввод. Выход из программы."
+				exit 1
+			fi
+		fi
 	else
 		log_msg "$SCRIPT: FAIL: doesn't exists"
 		echo -e "\a\e[1;31mОШИБКА: пакета '$SCRIPT' не существует!\e[0m"
