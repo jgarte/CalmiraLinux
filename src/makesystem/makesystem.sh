@@ -53,9 +53,15 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 		chmod +x packages/$SCRIPT
 		log_msg "found package $SCRIPT"
 		if packages/$SCRIPT  2>&1 |tee -a /var/log/$SCRIPT-build.log; then
+			echo "Code: $?"
+			
 			echo -e "\a\e[1m$SCRIPT\e[0m\e[1;35m $OK_MSG"
-			log_msg "$SCRIPT: OK"
+			log_msg "$SCRIPT: building OK"
 		else
+			echo "Code: $?"
+			
+			log_msg "$SCRIPT: building FAIL! ! !"
+			
 			echo -e "\a\a\e[1m$SCRIPT\e[0m\e[1;31m $FAIL_MSG"
 			echo -n "Завершить сборку (y/n)? "
 			read run
