@@ -4,13 +4,13 @@ NAME="file"
 VERSION="5.40"
 
 tar -xf $NAME-$VERSION.tar.gz;
-cd $VERSION-$VERSION
+cd $NAME-$VERSION
 
 ./configure --prefix=/usr
 make
 
 if [ $TEST_MODE = "enable" ]; then
-	make check 2>&1 |tee -a log/$NAME.log
+	make check 2>&1 |tee -a log/$NAME-test.log
 fi
 
 make install
