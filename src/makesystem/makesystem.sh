@@ -2,6 +2,11 @@
 # Скрипт для автоматизированной сборки Calmira GNU/Linux
 # (C) 2021 Михаил Краснов <linuxoid85@gmail.com>
 # Для Calmira LX4 1.1 GNU/Linux
+# Версия: 0.1
+
+VERSION="0.1"
+PACKAGES="packages" # Дефолтное значение, может быть PACKAGES="multilib-packages"
+TEST_MODE="disable" # Дефолтное значение, может быть TEST_MODE="enable"
 
 ## Functions ##
 source locale.sh
@@ -13,7 +18,7 @@ function header_msg() {
 
 # Отправка сообщений в лог
 function log_msg() {
-	echo "$(date) $1" >> /var/log/system_building.log
+	echo "$(date) $1" >> /var/log/system_building/system_building.log
 }
 
 ## Script ##
@@ -24,11 +29,52 @@ if [ $(whoami) != "root" ]; then
 	exit 1
 fi
 
-# Setting up testing mode
-if [ $1 = "--enable-test" ]; then
-	echo "Включен режим тестирования пакетов"
-	export TEST_MODE="enable"
+# Check log dir
+
+if [ -d "/var/log/system_building" ]; then
+	echo "log directory: ok"
+else
+	mkdir -v /var/log/system_building
 fi
+
+# Cmd args parsing
+while [ -n $1 ]; do
+	case $1 in
+		# Режим тестирования пакетов - если он
+		# включен, то каждый пакет будет проходить
+		# тестирование (make check/test),
+		# результаты которого будут перенаправляться
+		# в файл лога
+		--enable-test)
+			echo "Включен режим тестирования пакетов"
+			export TEST_MODE="enable"
+		;;
+		
+		# Режим multilib - если он включен, то
+		# будет собрана multilib-редакция системы
+		--enable-multilib)
+			echo "Сборка Multilib-системы включена"
+			export PACKAGES="multilib-packages"
+		;;
+		
+		# Ответить yes (Y/y) на все запросы утилиты
+		-y)
+			echo "Теперь скрипт будет отвечать утвердительно на все вопросы"
+			export run = "y"
+		;;
+		
+		# Версия скрипта
+		-v|--version)
+			echo "$VERSION"
+		;;
+		
+		*)
+			echo -e "\e[1mОШИБКА: неправильный ввод. Аргумента \e[0m\e[1m$1\e[0m\e[1;31m не существует! \e[0m"
+			exit 1
+		;;
+	esac
+	shift
+done
 
 # Сборка и установка пакетов
 header_msg "Сборка базовой системы"
@@ -49,10 +95,10 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 			"curl" "git" "pciutils" "which" "linux"; do
 	echo -e "\a\e[1;35mУстановка пакета \e[0m\e[1m$SCRIPT\e[0m\e[1;35m...\e[0m"
 
-	if [ -f "packages/$SCRIPT" ]; then
-		chmod +x packages/$SCRIPT
+	if [ -f "$PACKAGES/$SCRIPT" ]; then
+		chmod +x $PACKAGES/$SCRIPT
 		log_msg "found package $SCRIPT"
-		if packages/$SCRIPT  2>&1 |tee -a /var/log/$SCRIPT-build.log; then
+		if $PACKAGES/$SCRIPT  2>&1 |tee -a /var/log/system-building/$SCRIPT-build.log; then
 			echo "Code: $?"
 			
 			echo -e "\a\e[1m$SCRIPT\e[0m\e[1;35m $OK_MSG"
