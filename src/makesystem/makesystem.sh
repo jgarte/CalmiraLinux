@@ -5,15 +5,20 @@
 # Версия: 0.1
 
 VERSION="0.1"
-PACKAGES="packages" # Дефолтное значение, может быть PACKAGES="multilib-packages"
-TEST_MODE="disable" # Дефолтное значение, может быть TEST_MODE="enable"
+
+## Settings ##
+DISTRO_NAME="Calmira LX4"
+DISTRO_VERSION="1.1 RC2 dev"
+
+## User settings ##
+source config.sh
 
 ## Functions ##
 source locale.sh
 
 # Заголовок
 function header_msg() {
-	echo -e "\n\e[1m$1\e[0m"
+	echo -e "\n${COL_HEADER}$1${COL_NORMAL}"
 }
 
 # Отправка сообщений в лог
@@ -69,7 +74,7 @@ while [ -n $1 ]; do
 		;;
 		
 		*)
-			echo -e "\e[1mОШИБКА: неправильный ввод. Аргумента \e[0m\e[1m$1\e[0m\e[1;31m не существует! \e[0m"
+			echo -e "${COL_ERROR}ОШИБКА: неправильный ввод. Аргумента ${COL_NORMAL}${COL_HEADER}$1${COL_NORMAL}${COL_ERROR} не существует! ${COL_NORMAL}"
 			exit 1
 		;;
 	esac
@@ -93,7 +98,7 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 			"p11-kit" "make-ca" "vim" "eudev" "procps" "util-linux"       \
 			"sysklogd" "sysvinit" "bootscripts" "e2fsprogs" "grub"        \
 			"curl" "git" "pciutils" "which" "linux"; do
-	echo -e "\a\e[1;35mУстановка пакета \e[0m\e[1m$SCRIPT\e[0m\e[1;35m...\e[0m"
+	echo -e "\a${COL_MESSAGE}Установка пакета ${COL_NORMAL}${COL_HEADER}$SCRIPT${COL_NORMAL}${COL_MESSAGE}...${COL_NORMAL}"
 
 	if [ -f "$PACKAGES/$SCRIPT" ]; then
 		chmod +x $PACKAGES/$SCRIPT
@@ -101,14 +106,14 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 		if $PACKAGES/$SCRIPT  2>&1 |tee -a /var/log/system-building/$SCRIPT-build.log; then
 			echo "Code: $?"
 			
-			echo -e "\a\e[1m$SCRIPT\e[0m\e[1;35m $OK_MSG"
+			echo -e "\a${COL_HEADER}$SCRIPT${COL_NORMAL}${COL_MESSAGE} $OK_MSG"
 			log_msg "$SCRIPT: building OK"
 		else
 			echo "Code: $?"
 			
 			log_msg "$SCRIPT: building FAIL! ! !"
 			
-			echo -e "\a\a\e[1m$SCRIPT\e[0m\e[1;31m $FAIL_MSG"
+			echo -e "\a\a${COL_HEADER}$SCRIPT${COL_NORMAL}${COL_ERROR} $FAIL_MSG"
 			echo -n "Завершить сборку (y/n)? "
 			read run
 			
@@ -116,7 +121,7 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 				echo "Выход с кодом завершения 1"
 				exit 1
 			elif [ $run = "N" ] || [ $run = "n" ]; then
-				echo -e "\e[1;31mПродолжается сборка. Работа конечной системы и корректность дальнейшей работы не гарантируется.\e[0m"
+				echo -e "${COL_ERROR}Продолжается сборка. Работа конечной системы и корректность дальнейшей работы не гарантируется.${COL_NORMAL}"
 			else
 				echo "Неправильный ввод. Выход из программы."
 				exit 1
@@ -124,7 +129,7 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 		fi
 	else
 		log_msg "$SCRIPT: FAIL: doesn't exists"
-		echo -e "\a\a\e[1;31mОШИБКА: пакета '$SCRIPT' не существует!\e[0m"
+		echo -e "\a\a${COL_ERROR}ОШИБКА: пакета '$SCRIPT' не существует!${COL_NORMAL}"
 		echo -n "Прервать сборку (Y/n) "
 		read run
 
@@ -132,7 +137,7 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 			echo "Прервано."
 			exit 1
 		elif [ $run = "N" ] || [ $run = "n" ]; then
-			echo -e "\e[1;31mПродолжается сборка. Работа конечной системы и корректность дальнейшей сборки не гарантируется.\e[0m"
+			echo -e "${COL_ERROR}Продолжается сборка. Работа конечной системы и корректность дальнейшей сборки не гарантируется.${COL_NORMAL}"
 		else
 			echo "Неправильный ввод. Выход из программы."
 			exit 1
@@ -162,7 +167,7 @@ fi
 header_msg "Настройка fstab"
 log_msg "setting up fstab file"
 
-echo -e "\nВведите метку корневого раздела, на который установлена система \e[1m(sda1, hdb3, etc.)\e[0m: "
+echo -e "\nВведите метку корневого раздела, на который установлена система ${COL_HEADER}(sda1, hdb3, etc.)${COL_NORMAL}: "
 read DISK # <<-- DOESN'T UNSET THIS VARIABLE!
 
 echo "# file system  mount-point  type     options             dump  fsck
@@ -259,25 +264,25 @@ set timeout=5
 insmod ext2
 set root=(hd$DISKNUMBER,$PARTNUMBER)
 
-menuentry "Calmira LX4 1.1 RC2 GNU/Linux" {
+menuentry "$GRUB_NAME_DISTRO" {
         linux /boot/vmlinuz root=/dev/$DISK ro
 }
 EOF
 
 log_msg "setting up system info files"
 cat > /etc/os-release << "EOF"
-NAME="Calmira LX4"
-VERSION="1.1"
+NAME="$DISTRO_NAME"
+VERSION="$DISTRO_VERSION"
 ID=calmiralinux
-PRETTY_NAME="Calmira LX4 1.1"
-VERSION_CODENAME="Aquarius"
+PRETTY_NAME="$DISTRO_NAME $DISTRO_VERSION"
+VERSION_CODENAME="$DISTRO_CODENAME"
 EOF
 
 cat > /etc/lsb-release << "EOF"
-DISTRIB_ID="Calmira LX4"
-DISTRIB_RELEASE="1.1"
-DISTRIB_CODENAME="Aquarius"
-DISTRIB_DESCRIPTION="Calmira LX4 1.1 Aquarius GNU/Linux"
+DISTRIB_ID="$DISTRO_NAME"
+DISTRIB_RELEASE="$DISTRO_VERSION"
+DISTRIB_CODENAME="$DISTRO_CODENAME"
+DISTRIB_DESCRIPTION="$DISTRO_NAME $DISTRO_DESCRIPTION"
 EOF
 
 log_msg "setting up computer hostname"
