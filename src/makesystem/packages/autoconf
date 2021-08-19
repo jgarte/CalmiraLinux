@@ -6,4 +6,9 @@ cd autoconf-2.71
 ./configure --prefix=/usr
 
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
 make install

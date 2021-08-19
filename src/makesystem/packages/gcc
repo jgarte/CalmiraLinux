@@ -16,6 +16,24 @@ cd       build
              --enable-languages=c,c++  --disable-multilib
 
 make
+
+
+if [ $TEST_MODE = "enable" ]; then
+	echo -e -n "\e[1mТестирование может занять очень много времени (около 3-6 часов на мощном железе). Действительно пройти тесты(y/N)? "
+	read run
+	
+	if [ $run = "y" ] || [ $run = "Y" ] || [ $RUN = "y" ]; then
+		# Тестирование
+		ulimit -s 32768
+		chown -Rv tester . 
+		su tester -c "PATH=$PATH make -k check"
+		
+		../contrib/test_summary
+	else
+		echo -e "\e[1mТестирование проведено не будет.\e[0m"
+	fi
+fi
+
 make install
 
 rm -rvf /usr/lib/gcc/$(gcc -dumpmachine)/11.1.0/include-fixed/bits/

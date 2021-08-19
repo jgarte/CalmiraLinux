@@ -6,4 +6,9 @@ cd bison-3.7.6
 ./configure --prefix=/usr --docdir=/usr/share/doc/bison
 
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
 make install

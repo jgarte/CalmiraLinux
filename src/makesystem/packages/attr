@@ -9,6 +9,11 @@ cd attr-2.5.1
             --sysconfdir=/etc
 
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
 make install
 
 mv -v /usr/lib/libattr.so.* /lib

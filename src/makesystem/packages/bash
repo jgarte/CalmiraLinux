@@ -9,6 +9,14 @@ sed -i  '/^bashline.o:.*shmbchar.h/a bashline.o: ${DEFDIR}/builtext.h' Makefile.
             --with-installed-readline
             
 make
+
+if [ $TEST_MODE = "enable" ]; then
+chown -Rv tester .
+su tester << EOF
+PATH=$PATH make tests < $(tty)
+EOF
+fi
+
 make install
 
 mv -vf /usr/bin/bash /bin

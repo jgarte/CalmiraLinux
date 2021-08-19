@@ -5,4 +5,9 @@ cd XML-Parser-2.46
 
 perl Makefile.PL
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make test
+fi
+
 make install

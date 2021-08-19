@@ -14,6 +14,11 @@ cd inetutils-2.0
             --disable-servers
             
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
 make install
 
 mv -v /usr/bin/{hostname,ping,ping6,traceroute} /bin

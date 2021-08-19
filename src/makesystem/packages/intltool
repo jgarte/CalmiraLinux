@@ -7,4 +7,9 @@ sed -i 's:\\\${:\\\$\\{:' intltool-update.in
 ./configure --prefix=/usr
 
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
 make install

@@ -9,6 +9,11 @@ cd elfutils-0.185
             --enable-libdebuginfod=dummy
             
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
 make -C libelf install
 install -vm644 config/libelf.pc /usr/lib/pkgconfig
 rm /lib/libelf.a

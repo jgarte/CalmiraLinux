@@ -5,6 +5,11 @@ cd libcap-2.51
 
 sed -i '/install -m.*STA/d' libcap/Makefile
 make lib=lib
+
+if [ $TEST_MODE = "enable" ]; then
+	make test
+fi
+
 make lib=lib PKGCONFIGDIR=/usr/lib/pkgconfig install
 chmod -v 755 /lib/lib{cap,psx}.so.2
 

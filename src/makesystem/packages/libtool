@@ -5,5 +5,10 @@ cd libtool-2.4.6
 
 ./configure --prefix=/usr
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
 make install
 rm -fv /usr/lib/libltdl.a

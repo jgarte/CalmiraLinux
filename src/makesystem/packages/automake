@@ -7,4 +7,9 @@ sed -i "s/''/etags/" t/tags-lisp-space.sh
 ./configure --prefix=/usr
 
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
 make install

@@ -6,4 +6,9 @@ cd libffi-3.4.2
 ./configure --prefix=/usr --disable-static --with-gcc-arch=native
 
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
 make install

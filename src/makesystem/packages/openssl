@@ -10,5 +10,10 @@ cd openssl-1.1.1k
          zlib-dynamic
          
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make test
+fi
+
 sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
 make MANSUFFIX=ssl install

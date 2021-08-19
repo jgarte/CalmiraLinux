@@ -7,4 +7,9 @@ cd expat-2.4.1
             --disable-static
             
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make -j1 check
+fi
+
 make install

@@ -8,4 +8,9 @@ cd mpfr-4.1.0
             --enable-thread-safe
 
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
 make install

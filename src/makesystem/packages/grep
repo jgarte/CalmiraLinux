@@ -5,4 +5,9 @@ cd grep-3.6
 
 ./configure --prefix=/usr --bindir=/bin
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
 make install

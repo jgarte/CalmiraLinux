@@ -22,4 +22,9 @@ sh Configure -des                                         \
              -Dusethreads
              
 make
+
+if [ $TEST_MODE = "enable" ]; then
+	make test
+fi
+
 make install
