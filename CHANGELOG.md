@@ -1,8 +1,8 @@
 # Change Log
 
 ## Релиз LX4 1.1
-* Сборка по LX4 1.3.
-* Фикс https://github.com/CalmiraLinux/CalmiraLinux/issues/44
+* Удаление ненужных файлов и приведение ChangeLog в нормальное состояние;
+* Фикс https://github.com/CalmiraLinux/CalmiraLinux/issues/44;
 * Добавление скрипта `src/makesystem.sh` для автоматизации сборки системы;
 * Отказ от `fd` и `exa`;
 * Добавление информации о дополнительных загрузочных скриптах в документацию;
@@ -30,6 +30,7 @@
   * Calmira Ports 1.1 rc1
   * cpkg-1.0
   * which (bash скрипт)
+* Сборка по LX4 1.3.
 
 ## Релиз LX4 1.0
 * Переход с платформы LFS на LX4. Последняя намного перспективнее LFS, но ошибки всё ещё есть.
