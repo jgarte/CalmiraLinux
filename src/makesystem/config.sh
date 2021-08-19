@@ -2,7 +2,7 @@
 
 ## About Calmira ##
 DISTRO_NAME="Calmira LX4"
-DISTRO_NAME="1.1"
+DISTRO_VERSION="1.1"
 DISTRO_CODENAME="Aquarius"
 GRUB_NAME_DISTRO="Calmira LX4 1.1 RC2 GNU/Linux"
 
