@@ -23,7 +23,7 @@ function header_msg() {
 
 # Отправка сообщений в лог
 function log_msg() {
-	echo "$(date) $1" >> /var/log/system_building/system_building.log
+	echo -e "$(date) $1" >> /var/log/system_building/system_building.log
 }
 
 ## Script ##
@@ -143,7 +143,7 @@ done
 
 unset TEST_MODE
 
-log_msg "END SYSTEM BUILDING"
+log_msg "END SYSTEM BUILDING\n\n"
 header_msg "Система собрана. Если есть ошибки, исправьте их."
 
 ## Настройка системы ##
