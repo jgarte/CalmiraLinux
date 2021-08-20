@@ -71,11 +71,7 @@ while [ -n $1 ]; do
 		# Версия скрипта
 		-v|--version)
 			echo "$VERSION"
-		;;
-		
-		*)
-			echo -e "${COL_ERROR}ОШИБКА: неправильный ввод. Аргумента ${COL_NORMAL}${COL_HEADER}$1${COL_NORMAL}${COL_ERROR} не существует! ${COL_NORMAL}"
-			exit 1
+			exit 0
 		;;
 	esac
 	shift
