@@ -43,8 +43,8 @@ else
 fi
 
 # Cmd args parsing
-while [ -n $1 ]; do
-	case $1 in
+while [ -n "$1" ]; do
+	case "$1" in
 		# Режим тестирования пакетов - если он
 		# включен, то каждый пакет будет проходить
 		# тестирование (make check/test),
@@ -147,8 +147,9 @@ log_msg "END SYSTEM BUILDING\n\n"
 header_msg "Система собрана. Если есть ошибки, исправьте их."
 
 ## Настройка системы ##
-read -p "Продолжить настройку? (Y/n) " run
-if [ $run = "Y" ] || [ $run = "y" ]; then
+echo "Продолжить настройку? (Y/n) "
+read run
+if [ $run = "Y" ] || [ $run = "y" ] || [ $RUN = "y" ]; then
 	echo "Продолжение"
 	log_msg "START SETTING UP BASE SYSTEM"
 elif [ $run = "N" ] || [ $run = "n" ]; then
@@ -197,6 +198,7 @@ EOF
 
 header_msg "Настройка SysVInit"
 
+echo "настройка inittab..."
 log_msg "setting up inittab file"
 cat > /etc/inittab << "EOF"
 # Begin /etc/inittab
@@ -227,6 +229,7 @@ su:S016:once:/sbin/sulogin
 # End /etc/inittab
 EOF
 
+echo "настройка часов..."
 log_msg "setting up sysconfig/clock file"
 cat > /etc/sysconfig/clock << "EOF"
 # Begin /etc/sysconfig/clock
@@ -240,6 +243,7 @@ CLOCKPARAMS=
 # End /etc/sysconfig/clock
 EOF
 
+echo "настройка консоли..."
 log_msg "setting up sysconfig/console file"
 cat > /etc/sysconfig/console << "EOF"
 # Begin /etc/sysconfig/console
@@ -271,6 +275,7 @@ menuentry "$GRUB_NAME_DISTRO" {
 }
 EOF
 
+echo "запись информации о системе"
 log_msg "setting up system info files"
 cat > /etc/os-release << "EOF"
 NAME="$DISTRO_NAME"
@@ -288,13 +293,16 @@ DISTRIB_DESCRIPTION="$DISTRO_NAME $DISTRO_DESCRIPTION"
 EOF
 
 log_msg "setting up computer hostname"
-read -p "Введите имя хоста (по умолчанию: calm-pc): " HOSTNAME
+echo "Введите имя хоста (по умолчанию: calm-pc): "
+read HOSTNAME
 
-if [ $HOSTNAME = '' ]; then
+if [ $HOSTNAME = '' ] || [ -z $HOSTNAME ]; then
 	echo "calm-pc" > /etc/hostname
 else
 	echo "$HOSTNAME" > /etc/hostname
 fi
 
+log_msg "END SYSTEM SETTING UP"
+echo "Настройка завершена!"
 
 exit 0
