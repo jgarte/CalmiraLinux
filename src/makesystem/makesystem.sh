@@ -160,6 +160,12 @@ else
 	exit 1
 fi
 
+header_msg "Установка пароля root"
+log_msg "setting up root password"
+
+echo -e "\e[1;31mEnter the root password:\e[0m"
+passwd root
+
 header_msg "Настройка fstab"
 log_msg "setting up fstab file"
 
