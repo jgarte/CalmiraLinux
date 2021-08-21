@@ -1,5 +1,3 @@
-# Calmira GNU/Linux
-
 <!-- Таблица для отображения на GitHub pages -->
 
 <table border="1" cellpadding="5" width="100%">
@@ -14,6 +12,8 @@
 		<td><a href="https://github.com/CalmiraLinux/CalmiraLinux/issues">Раздел вопросов и баг-репортов</a></td>
 	</tr>
 </table>
+
+# Calmira GNU/Linux
 
 ## Введение
 
