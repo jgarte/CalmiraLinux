@@ -1,5 +1,22 @@
 # Calmira GNU/Linux
 
+<!-- Таблица для отображения на GitHub pages -->
+
+<table border="1" cellpadding="5" width="100%">
+	<tr>
+		<td><a href="docs/index.html">Раздел документации</a></td>
+		<td><a href="docs/installation/download.html">Скачивание дистрибутива</a></td>
+		<td><a href="https://github.com/CalmiraLinux/CalmiraLinux/releases">Раздел загрузок</a></td>
+	</tr>
+	<tr>
+		<td><a href="docs/about.html">О дистрибутиве</a></td>
+		<td><a href="CHANGELOG.html">Список изменений на сегодня</a></td>
+		<td><a href="https://github.com/CalmiraLinux/CalmiraLinux/issues">Раздел вопросов и баг-репортов</a></td>
+	</tr>
+</table>
+
+## Введение
+
 Это легковесный независимый дистрибутив со своей пакетной базой.
 Пакетный менеджер `cpkg`, пришедший на смену менее надёжному и простому `cpkg-tools`, находится пока в зачаточном состоянии. Название "Calmira" дано в честь одноимённой графической оболочки для Win3.11.
 
