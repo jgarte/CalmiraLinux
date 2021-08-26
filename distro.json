@@ -1,0 +1,11 @@
+{
+	"distroName": "Calmira LX4",
+	"builds":
+	{
+		"build3": "20.08.2021",
+		"build4": "05.09.2021",
+		"build5": "15.10.2021"
+	},
+	"distroVersion": "1.1",
+	"distroCodename": "Aquarius"
+}
