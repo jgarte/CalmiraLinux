@@ -173,7 +173,11 @@ log_msg "setting up fstab file"
 echo -e "\nВведите метку корневого раздела, на который установлена система ${COL_HEADER}(sda1, hdb3, etc.)${COL_NORMAL}: "
 read DISK # <<-- DOESN'T UNSET THIS VARIABLE!
 
-echo "# file system  mount-point  type     options             dump  fsck
+echo "# Begin /etc/fstab
+# Written for Calmira LX4 1.1
+# (C) 2021 Michail Krasnov <linuxoid85@gmail.com>
+
+# file system  mount-point  type     options             dump  fsck
 #                                                              order
 
 /dev/$DISK     /            ext4     defaults             1     1 
@@ -262,35 +266,29 @@ read -p "Введите номер нужного раздела (1, 2, 3, 5, et
 
 grub-install /dev/$SYSDISK
 
-cat > /boot/grub/grub.cfg << "EOF"
-# Begin /boot/grub/grub.cfg
+echo "# Begin /boot/grub/grub.cfg
 set default=0
 set timeout=5
 
 insmod ext2
 set root=(hd$DISKNUMBER,$PARTNUMBER)
 
-menuentry "$GRUB_NAME_DISTRO" {
+menuentry \"$GRUB_NAME_DISTRO\" {
         linux /boot/vmlinuz root=/dev/$DISK ro
-}
-EOF
+}" > /boot/grub/grub.cfg
 
 echo "запись информации о системе"
 log_msg "setting up system info files"
-cat > /etc/os-release << "EOF"
-NAME="$DISTRO_NAME"
-VERSION="$DISTRO_VERSION"
+echo "NAME=\"$DISTRO_NAME\"
+VERSION=\"$DISTRO_VERSION\"
 ID=calmiralinux
-PRETTY_NAME="$DISTRO_NAME $DISTRO_VERSION"
-VERSION_CODENAME="$DISTRO_CODENAME"
-EOF
+PRETTY_NAME=\"$DISTRO_NAME $DISTRO_VERSION\"
+VERSION_CODENAME=\"$DISTRO_CODENAME\"" > /etc/os-release
 
-cat > /etc/lsb-release << "EOF"
-DISTRIB_ID="$DISTRO_NAME"
-DISTRIB_RELEASE="$DISTRO_VERSION"
-DISTRIB_CODENAME="$DISTRO_CODENAME"
-DISTRIB_DESCRIPTION="$DISTRO_NAME $DISTRO_DESCRIPTION"
-EOF
+echo "DISTRIB_ID=\"$DISTRO_NAME\"
+DISTRIB_RELEASE=\"$DISTRO_VERSION\"
+DISTRIB_CODENAME=\"$DISTRO_CODENAME\"
+DISTRIB_DESCRIPTION=\"$DISTRO_NAME $DISTRO_DESCRIPTION\"" > /etc/lsb-release
 
 log_msg "setting up computer hostname"
 echo "Введите имя хоста (по умолчанию: calm-pc): "
