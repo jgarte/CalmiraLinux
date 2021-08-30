@@ -126,13 +126,13 @@ for SCRIPT in "bash-files" "iana-etc" "glibc" "zlib-ng" "bzip2"           \
 	else
 		log_msg "$SCRIPT: FAIL: doesn't exists"
 		echo -e "\a\a${COL_ERROR}ОШИБКА: пакета '$SCRIPT' не существует!${COL_NORMAL}"
-		echo -n "Прервать сборку (Y/n) "
+		echo -n "Прервать сборку (n/y) "
 		read run
 
-		if [ $run = "Y" ] || [ $run = "y" ]; then
+		if [ $run = "n" ] || [ $run = "N" ]; then
 			echo "Прервано."
 			exit 1
-		elif [ $run = "N" ] || [ $run = "n" ]; then
+		elif [ $run = "Y" ] || [ $run = "y" ]; then
 			echo -e "${COL_ERROR}Продолжается сборка. Работа конечной системы и корректность дальнейшей сборки не гарантируется.${COL_NORMAL}"
 		else
 			echo "Неправильный ввод. Выход из программы."
