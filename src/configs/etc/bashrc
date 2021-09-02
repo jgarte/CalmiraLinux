@@ -5,7 +5,5 @@
 system_welcome
 
 ## Aliases
-alias ls='ls -l'
 alias cls='clear'
 alias edit='vim'
-alias help='man bash'

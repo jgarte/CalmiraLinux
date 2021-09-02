@@ -6,6 +6,8 @@ cat > /etc/profile << "EOF"
 # by James Robertson <jameswrobertson@earthlink.net>
 # modifications by Dagmar d'Surreal <rivyqntzne@pbzpnfg.arg>
 # modifications for Linux4yourself by makpif <citokot@gmail.com>
+# modifications for Calmira LX4 1.1 by Michail Krasnov
+#                                           <linuxoid85@gmail.com>
 
 # System wide environment variables and startup programs.
 
@@ -43,6 +45,35 @@ pathappend () {
 
 export -f pathremove pathprepend pathappend
 
+# Calmira Linux functions
+ver() {
+	. /etc/lsb-release
+	echo -e "Welcome to $DISTRIB_ID!
+
+Version: $DISTRIB_RELEASE
+Codename: $DISTRIB_CODENAME
+
+Site: https://github.com/Linuxoid85/CalmiraLinux
+
+"
+}
+
+system_welcome() {
+	echo "  --== Base commands ==--
+ls      - view directory contents 
+cd      - chande directory
+mkdir   - make directory
+rm -f   - delete file
+rm -rf  - delete directory
+cpkg    - package manager for Calmira Linux
+ver     - about Calmira Linux
+
+Shell start date: $(shall_date_start)
+"
+}
+
+export -f ver system_welcome
+
 # Set the initial path
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 
@@ -56,23 +87,17 @@ export XDG_DATA_DIRS=${XDG_DATA_DIRS:-/usr/share/}
 export XDG_CONFIG_DIRS=${XDG_CONFIG_DIRS:-/etc/xdg/}
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/xdg-$USER}
 
-# Setup a red prompt for root and a green one for users.
-NORMAL="\[\e[0m\]"
-RED="\[\e[1;31m\]"
-GREEN="\[\e[1;32m\]"
-if [[ $EUID == 0 ]] ; then
-  PS1="$RED\u [ $NORMAL\w$RED ]# $NORMAL"
-else
-  PS1="$GREEN\u [ $NORMAL\w$GREEN ]\$ $NORMAL"
-fi
+# Setup a command promt
+PS1='<develop version> \u:\w\$ '
 
+# Source user files from /etc/profile.d
 for script in /etc/profile.d/*.sh ; do
         if [ -r $script ] ; then
                 . $script
         fi
 done
 
-unset script RED GREEN NORMAL
+unset script
 
 # CFLAGS and CXXFLAGS for optimization (if you want - add -march=native)
 
