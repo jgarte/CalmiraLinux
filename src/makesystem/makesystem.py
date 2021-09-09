@@ -6,6 +6,7 @@
 
 ## Imports ##
 import os
+import json
 import subprocess
 
 ## Base constants ##
@@ -48,18 +49,17 @@ with open(JSON_FILE) as f:
 
 # Проверка на существование файлов
 for File in fileData["files"]:
-    PackageFile = BuildInstructions + fileData["files"]
+    PackageFile = BuildInstructions + File
 
-    print("Testing file {} ...".format(PackageFile), end = " ")
+    print("Testing file {}...".format(PackageFile), end = " ")
     if os.path.isfile(PackageFile):
         print("ok")
     else:
         print("\033[31mFAIL\033[0m")
-        exit(1)
     
 # Сборка
 for File in fileData["packages"]:
-    PackageFile = BuildInstructions + fileData["packages"]
+    PackageFile = BuildInstructions + File
     
     LogMessage = "Build package " + PackageFile
     log_msg(LogMessage)
@@ -71,4 +71,3 @@ for File in fileData["packages"]:
         print("Пакет {} вернул значение 1, а значит, возможно, сборка НЕПРАВИЛЬНАЯ!".format(PackageFile))
     else:
         print("Неизвестная ошибка при сборке пакета {}".format(PackageFile))
-    

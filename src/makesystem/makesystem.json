@@ -13,7 +13,7 @@
       "bzip2",
       "check",
       "coreutils",
-      "dbus",
+      "d-bus",
       "diffutils",
       "e2fsprogs",
       "elfutils",
@@ -67,6 +67,8 @@
       "sed",
       "shadow",
       "sysklogd",
+      "systemd-users",
+      "systemd",
       "sysvinit",
       "markupsafe",
       "jinja2",
@@ -170,6 +172,7 @@
     ],
     "systemd-packages": [
         "systemd-users",
+        "systemd",
         "d-bus",
         "procps-ng-systemd",
         "util-linux-systemd"
