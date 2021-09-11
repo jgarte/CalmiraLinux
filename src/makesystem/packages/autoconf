@@ -1,14 +1,14 @@
 #!/bin/bash
 
-tar -xf autoconf-2.71.tar.xz
-cd autoconf-2.71
+NAME="autoconf"
+VERSION="2.71"
 
-./configure --prefix=/usr
-
-make
-
-if [ $TEST_MODE = "enable" ]; then
-	make check
-fi
-
-make install
+{ time \
+	{
+		tar -xvf "$NAME-$VERSION.tar.xz" &&
+		cd $NAME-$VERSION                &&
+		./configure --prefix=/usr        &&
+		make                             &&
+		make install                     &&
+	}
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log

@@ -3,14 +3,14 @@
 NAME="bc"
 VERSION="4.0.2"
 
-tar -xf $NAME-$VERSION.tar.xz
-cd $NAME-$VERSION
+{ time \
+	{
+		tar -xf $NAME-$VERSION.tar.xz
+		cd $NAME-$VERSION
 
-CC=gcc ./configure --prefix=/usr -G -O3
-make
+		CC=gcc ./configure --prefix=/usr -G -O3
+		make
 
-if [ $TEST_MODE = "enable" ]; then
-	make test
-fi
-
-make install
+		make install
+	}
+} 2>&1 |tee /var/log/system_building/packages/$NAME.log

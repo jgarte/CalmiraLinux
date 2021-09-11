@@ -4,6 +4,9 @@
 # Для Calmira LX4 1.1 GNU/Linux
 # Версия: 0.2
 
+## TODOS ##
+# TODO - Add build time analysis and redirect messages to the log for all build scripts
+
 ## Imports ##
 import os
 import json
@@ -27,6 +30,20 @@ def log_msg(message):
     for index in message:
         f.write(index)
 
+# Диалог с пользователем
+def dialog_msg():
+    print("Прожолжить?")
+
+    run = input()
+    if run == "y" and run == "Y":
+        print("Продолжается сборка...")
+    elif run == "n" and run == "N":
+        print("Сборка прервана!")
+        exit(1)
+    else:
+        print("НЕПРАВИЛЬНОЕ ЗНАЧЕНИЕ ({}). Аварийное завершение работы.".format(run))
+
+
 ## Script body ##
 
 # Check root
@@ -38,7 +55,7 @@ if GID != 0:
 if os.path.isdir(LogDir):
     pass
 else:
-    print("Создаётся директория {} ...".format(LogDir))
+    print("Создаётся директория {}...".format(LogDir))
     os.makedirs(LogDir)
 
 header_msg("Сборка базовой системы")
@@ -53,21 +70,30 @@ for File in fileData["files"]:
 
     print("Testing file {}...".format(PackageFile), end = " ")
     if os.path.isfile(PackageFile):
-        print("ok")
+        print("\033[32mok\033[0m")
     else:
         print("\033[31mFAIL\033[0m")
     
-# Сборка
+"""
+Building a system.
+
+The required script with assembly instructions is launched.
+
+If it returned 0, then the build was successful. If it returned a value
+other than zero, then a warning about incorrect building is displayed.
+"""
 for File in fileData["packages"]:
     PackageFile = BuildInstructions + File
     
-    LogMessage = "Build package " + PackageFile
+    LogMessage = "Build package " + File
     log_msg(LogMessage)
 
     result = subprocess.run(PackageFile, shell=True)
     if result.returncode == 0:
-        print("Пакет {} вернул значение 0, а значит, возможно, сборка успешна.".format(PackageFile))
+        print("Package {} returned 0, which means the build is probably successful.".format(PackageFile))
     elif result.returncode == 1:
-        print("Пакет {} вернул значение 1, а значит, возможно, сборка НЕПРАВИЛЬНАЯ!".format(PackageFile))
+        print("Package {} returned a value of 1, which means the assembly is probably WRONG!".format(PackageFile))
+        dialog_msg
     else:
-        print("Неизвестная ошибка при сборке пакета {}".format(PackageFile))
+        print("Unknown error while building package {}".format(PackageFile))
+        dialog_msg

@@ -1,15 +1,22 @@
 #!/bin/bash
 
-tar -xf acl-2.3.1.tar.xz
-cd acl-2.3.1
+NAME="acl"
+VERSION="2.3.1"
 
-./configure --prefix=/usr         \
-            --bindir=/bin         \
-            --disable-static      \
-            --libexecdir=/usr/lib
+{ time \
+  {
+    tar -xvf "$NAME-$VERSION.tar.xz" &&
+    cd $NAME-$VERSION &&
 
-make
-make install
+    ./configure --prefix=/usr         \
+                --bindir=/bin         \
+                --disable-static      \
+                --libexecdir=/usr/lib &&
 
-mv -v /usr/lib/libacl.so.* /lib
-ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so
+    make &&
+    make install &&
+
+    mv -v /usr/lib/libacl.so.* /lib &&
+    ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so
+  }
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log

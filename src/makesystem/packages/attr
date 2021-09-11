@@ -1,20 +1,22 @@
 #!/bin/bash
 
-tar -xf attr-2.5.1.tar.gz
-cd attr-2.5.1
+NAME="attr"
+VERSION="2.5.1"
 
-./configure --prefix=/usr     \
-            --bindir=/bin     \
-            --disable-static  \
-            --sysconfdir=/etc
+{ time \
+  {
+    tar -xf "$NAME-$VERSION.tar.gz"  &&
+    cd attr-2.5.1                    &&
 
-make
+    ./configure --prefix=/usr     \
+                --bindir=/bin     \
+                --disable-static  \
+                --sysconfdir=/etc    &&
 
-if [ $TEST_MODE = "enable" ]; then
-	make check
-fi
+    make                             &&
+    make install                     &&
 
-make install
-
-mv -v /usr/lib/libattr.so.* /lib
-ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so
+    mv -v /usr/lib/libattr.so.* /lib &&
+    ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so
+  }
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log

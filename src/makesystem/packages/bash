@@ -1,22 +1,20 @@
 #!/bin/bash
 
-tar -xf bash-5.1.8.tar.gz
-cd bash-5.1.8
+NAME="bash"
+VERSION="5.1.8"
 
-sed -i  '/^bashline.o:.*shmbchar.h/a bashline.o: ${DEFDIR}/builtext.h' Makefile.in
-./configure --prefix=/usr                    \
-            --without-bash-malloc            \
+{ time \
+    {
+        tar -xf "$NAME-$VERSION.tar.gz"
+        cd $NAME-$VERSION
+
+        sed -i '/^bashline.o:.*shmbchar.h/a bashline.o: ${DEFDIR}/builtext.h' Makefile.in
+        ./configure --prefix=/usr --without-bash-malloc \
             --with-installed-readline
-            
-make
+        
+        make
+        make install
 
-if [ $TEST_MODE = "enable" ]; then
-chown -Rv tester .
-su tester << EOF
-PATH=$PATH make tests < $(tty)
-EOF
-fi
-
-make install
-
-mv -vf /usr/bin/bash /bin
+        mv -vf /usr/bin/bash /bin
+    }
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log

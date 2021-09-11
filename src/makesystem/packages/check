@@ -1,8 +1,12 @@
 #!/bin/bash
 
-tar -xf check-0.15.2.tar.gz
-cd check-0.15.2
+{ time \
+    {
+        tar -xf check-0.15.2.tar.gz
+        cd check-0.15.2
 
-./configure --prefix=/usr
-make
-make docdir=/usr/share/doc/check install
+        ./configure --prefix=/usr
+        make
+        make docdir=/usr/share/doc/check install
+    }
+} 2>&1 |tee /var/log/system_building/packages/$NAME.log

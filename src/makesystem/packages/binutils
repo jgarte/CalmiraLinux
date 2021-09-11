@@ -1,5 +1,9 @@
 #!/bin/bash
 
+NAME='binutils'
+
+{ time \
+{
 tar -xf binutils-2.36.1.tar.xz
 cd binutils-2.36.1
 
@@ -24,3 +28,5 @@ fi
 
 make tooldir=/usr install -j1
 rm -fv /usr/lib/lib{bfd,ctf,ctf-nobfd,opcodes}.a
+}
+} 2>&1 /var/log/system_building/packages/$NAME.log
