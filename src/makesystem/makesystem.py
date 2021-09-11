@@ -35,9 +35,9 @@ def dialog_msg():
     print("Прожолжить?")
 
     run = input()
-    if run == "y" and run == "Y":
+    if run == "y" or run == "Y":
         print("Продолжается сборка...")
-    elif run == "n" and run == "N":
+    elif run == "n" or run == "N":
         print("Сборка прервана!")
         exit(1)
     else:
