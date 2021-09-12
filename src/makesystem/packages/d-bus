@@ -1,21 +1,28 @@
 #!/bin/bash
 
-tar -xvf dbus-1.13.18.tar.gz
-cd dbus-1.13.18
+NAME="dbus"
+VERSION="1.13.18"
 
-./configure --prefix=/usr  --sysconfdir=/etc     \
+{ time \
+    {
+        tar -xvf dbus-1.13.18.tar.gz &&
+        cd dbus-1.13.18 &&
+
+        ./configure --prefix=/usr  --sysconfdir=/etc     \
             --localstatedir=/var                 \
             --disable-static                     \
             --disable-doxygen-docs               \
             --disable-xml-docs                   \
             --with-console-auth-dir=/run/console \
             --with-system-pid-file=/run/dbus/pid \
-            --with-system-socket=/run/dbus/system_bus_socket
+            --with-system-socket=/run/dbus/system_bus_socket &&
 
-make
-make install
+        make &
+        make install &&
 
-ln -sfv /etc/machine-id /var/lib/dbus
+        ln -sfv /etc/machine-id /var/lib/dbus &&
 
-mv -v /usr/lib/libdbus-1.so.* /lib
-ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so
+        mv -v /usr/lib/libdbus-1.so.* /lib &&
+        ln -sfv ../../lib/$(readlink /usr/lib/libdbus-1.so) /usr/lib/libdbus-1.so
+    }
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log

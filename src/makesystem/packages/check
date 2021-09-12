@@ -1,12 +1,15 @@
 #!/bin/bash
 
+NAME="check"
+VERSION="0.15.2"
+
 { time \
     {
-        tar -xf check-0.15.2.tar.gz
-        cd check-0.15.2
+        tar -xf $NAME-$VERSION.tar.gz &&
+        cd $NAME-$VERSION &&
 
-        ./configure --prefix=/usr
-        make
-        make docdir=/usr/share/doc/check install
+        ./configure --prefix=/usr &&
+        make &&
+        make docdir=/usr/share/doc/$NAME install
     }
 } 2>&1 |tee /var/log/system_building/packages/$NAME.log

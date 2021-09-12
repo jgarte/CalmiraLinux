@@ -1,9 +1,16 @@
 #!/bin/bash
 
-tar -xf diffutils-3.7.tar.xz
-cd diffutils-3.7
+NAME="diffutils"
+VERSION="3.7"
 
-./configure --prefix=/usr
+{ time \
+    {
+        tar -xf $NAME-$VERSION.tar.xz &&
+        cd $NAME-$VERSION &&
 
-make
-make install
+        ./configure --prefix=/usr &&
+
+        make &&
+        make install
+    }
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log

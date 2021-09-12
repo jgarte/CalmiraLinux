@@ -1,21 +1,28 @@
 #!/bin/bash
 
-tar -xf e2fsprogs-1.46.2.tar.gz
-cd e2fsprogs-1.46.2
+NAME="e2fsprogs"
+VERSION="1.46.2"
 
-./configure --prefix=/usr             \
+{ time \
+    {
+        tar -xf e2fsprogs-$VERSION.tar.gz &&
+        cd e2fsprogs-$VERSION &&
+
+        ./configure --prefix=/usr     \
              --sysconfdir=/etc        \
-	     --bindir=/bin            \
+	         --bindir=/bin            \
              --enable-elf-shlibs      \
              --disable-libblkid       \
              --disable-libuuid        \
              --disable-uuidd          \
              --disable-fsck           \
              --enable-symlink-install \
-             --enable-relative-symlinks
+             --enable-relative-symlinks &&
              
-make
-make install
+        make &&
+        make install &&
 
-gunzip -v /usr/share/info/libext2fs.info.gz
-install-info --dir-file=/usr/share/info/dir /usr/share/info/libext2fs.info
+        gunzip -v /usr/share/info/libext2fs.info.gz &&
+        install-info --dir-file=/usr/share/info/dir /usr/share/info/libext2fs.info
+    }
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log
