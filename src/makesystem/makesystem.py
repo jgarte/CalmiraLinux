@@ -73,6 +73,7 @@ for File in fileData["files"]:
         print("\033[32mok\033[0m")
     else:
         print("\033[31mFAIL\033[0m")
+        exit(1)
     
 """
 Building a system.
