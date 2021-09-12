@@ -23,8 +23,8 @@
 * Возвращение на более безопасную и надёжную раздельную систему каталогов, когда `/bin`, `/sbin`, `/usr/sbin` не являются ссылками на `/usr/bin` (и `/lib` на `/usr/lib`), а являются отдельными каталогами;
 * Добавление документации дистрибутива (`/usr/share/doc/Calmira`)
 * Отказ от пакетов `fd` и `exa` по умолчанию;
-* Добавление #28, #32, #37;
-* Фикс #26, #33, #34, #40, #41, #44, #47;
+* Добавление [#28](https://github.com/CalmiraLinux/CalmiraLinux/issues/28), [#32](https://github.com/CalmiraLinux/CalmiraLinux/issues/32), [#37](https://github.com/CalmiraLinux/CalmiraLinux/issues/37);
+* Фикс [#26](https://github.com/CalmiraLinux/CalmiraLinux/issues/26), [#33](https://github.com/CalmiraLinux/CalmiraLinux/issues/33), [#34](https://github.com/CalmiraLinux/CalmiraLinux/issues/34), [#40](https://github.com/CalmiraLinux/CalmiraLinux/issues/40), [#41](https://github.com/CalmiraLinux/CalmiraLinux/issues/41), [#44](https://github.com/CalmiraLinux/CalmiraLinux/issues/44), [#47](https://github.com/CalmiraLinux/CalmiraLinux/issues/47);
 * Добавление своего файла с информацией о системе;
 
 ### Примечания
@@ -34,5 +34,5 @@
 
 ### Баги
 
-* Не работает сеть на некоторых старых конфигурациях;
-* Не работает LiveISO образ системы. Для успешной загрузки требуется нормальный `initramfs`.
+* Не работает сеть на некоторых распространённых конфигурациях ([#48](https://github.com/CalmiraLinux/CalmiraLinux/issues/48));
+* Не работает LiveISO образ системы. Для успешной загрузки требуется нормальный `initramfs` ([#45](https://github.com/CalmiraLinux/CalmiraLinux/issues/45)).
