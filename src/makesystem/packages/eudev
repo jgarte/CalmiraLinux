@@ -1,9 +1,14 @@
 #!/bin/bash
 
-tar -xf eudev-3.2.10.tar.gz
-cd eudev-3.2.10
+NAME="eudev"
+VERSION="3.2.10"
 
-./configure --prefix=/usr           \
+{ time \
+    {
+        tar -xf eudev-$VERSION.tar.gz
+        cd eudev-$VERSION
+
+        ./configure --prefix=/usr   \
             --bindir=/sbin          \
             --sbindir=/sbin         \
             --libdir=/usr/lib       \
@@ -14,13 +19,15 @@ cd eudev-3.2.10
             --enable-manpages       \
             --disable-static
             
-make
-mkdir -pv /usr/lib/udev/rules.d
-mkdir -pv /etc/udev/rules.d
-make install
+        make
+        mkdir -pv /usr/lib/udev/rules.d
+        mkdir -pv /etc/udev/rules.d
+        make install
 
-mkdir udev
-cd udev
-tar -xvf ../../udev.tar.xz
-make install
-cd ..
+        mkdir udev
+        cd udev
+        tar -xvf ../../udev.tar.xz
+        make install
+        cd ..
+    }
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log
