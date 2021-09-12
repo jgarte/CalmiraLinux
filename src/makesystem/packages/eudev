@@ -5,8 +5,8 @@ VERSION="3.2.10"
 
 { time \
     {
-        tar -xf eudev-$VERSION.tar.gz
-        cd eudev-$VERSION
+        tar -xf eudev-$VERSION.tar.gz &&
+        cd eudev-$VERSION &&
 
         ./configure --prefix=/usr   \
             --bindir=/sbin          \
@@ -17,17 +17,17 @@ VERSION="3.2.10"
             --with-rootprefix=      \
             --with-rootlibdir=/lib  \
             --enable-manpages       \
-            --disable-static
+            --disable-static &&
             
-        make
-        mkdir -pv /usr/lib/udev/rules.d
-        mkdir -pv /etc/udev/rules.d
-        make install
+        make &&
+        mkdir -pv /usr/lib/udev/rules.d &&
+        mkdir -pv /etc/udev/rules.d &&
+        make install &&
 
-        mkdir udev
-        cd udev
-        tar -xvf ../../udev.tar.xz
-        make install
+        mkdir udev &&
+        cd udev &&
+        tar -xvf ../../udev.tar.xz &&
+        make install &&
         cd ..
     }
 } 2>&1 | tee /var/log/system_building/packages/$NAME.log

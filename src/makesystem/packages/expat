@@ -5,13 +5,13 @@ VERSION="2.4.1"
 
 { time \
     {
-        tar -xf expat-$VERSION.tar.xz
-        cd expat-$VERSION
+        tar -xf expat-$VERSION.tar.xz &&
+        cd expat-$VERSION &&
 
         ./configure --prefix=/usr    \
-            --disable-static
+            --disable-static &&
             
-        make
+        make &&
         make install
     }
 } 2>&1 | tee /var/log/system_building/packages/$NAME.log
