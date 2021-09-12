@@ -1,16 +1,18 @@
 #!/bin/bash
 
-tar -xf gdbm-1.20.tar.gz
-cd gdbm-1.20
+NAME="gdbm"
+VERSION="1.20"
+
+{ time \
+{
+tar -xf gdbm-$VERSION.tar.gz &&
+cd gdbm-$VERSION &&
 
 ./configure --prefix=/usr    \
             --disable-static \
-            --enable-libgdbm-compat
+            --enable-libgdbm-compat &&
             
-make
-
-if [ $TEST_MODE = "enable" ]; then
-	make check
-fi
-
+make &&
 make install
+}
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log
