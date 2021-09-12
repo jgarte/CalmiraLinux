@@ -42,19 +42,6 @@ pathappend () {
 
 export -f pathremove pathprepend pathappend
 
-# Calmira Linux functions
-ver() {
-	. /etc/lsb-release
-	echo -e "Welcome to $DISTRIB_ID!
-
-Version: $DISTRIB_RELEASE
-Codename: $DISTRIB_CODENAME
-
-Site: https://github.com/Linuxoid85/CalmiraLinux
-
-"
-}
-
 system_welcome() {
 	echo "  --== Base commands ==--
 ls      - view directory contents 
@@ -69,7 +56,7 @@ Shell start date: $(shall_date_start)
 "
 }
 
-export -f ver system_welcome
+export -f system_welcome
 
 # Set the initial path
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
