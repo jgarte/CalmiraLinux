@@ -7,3 +7,7 @@ system_welcome
 ## Aliases
 alias cls='clear'
 alias edit='vim'
+
+if [ $(whoami) != "root" ]; then
+    export PATH=/bin:/usr/bin
+fi
