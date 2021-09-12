@@ -73,7 +73,11 @@ for File in fileData["files"]:
         print("\033[32mok\033[0m")
     else:
         print("\033[31mFAIL\033[0m")
-        exit(1)
+        ErrorPackage = True
+
+if ErrorPackage:
+    print("Выявлены ошибки при проверке на наличие нужных файлов!") 
+    dialog_msg
     
 """
 Building a system.
