@@ -4,7 +4,7 @@
 
 ### Изменения/дополнения:
 
-* Сборка по [LX4 1.3](https://lx4u.ru/rel/1.3/#/);
+* Сборка по [LX4 1.3](https://lx4u.ru/rel/1.3/#/) с использованием [CABS](https://github.com/CalmiraLinux/CalmiraLinux/wiki/CABS---Calmira-Automation-Build-System);
 * Добавление пакетов:
     * curl-7.71.1
     * git-2.28.0
