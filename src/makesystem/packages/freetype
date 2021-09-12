@@ -1,14 +1,21 @@
 #!/bin/bash
 
-tar -xf freetype-2.10.4.tar.xz
-cd freetype-2.10.4
+NAME="freetype"
+VERSION="2.10.4"
 
-sed -ri "s:.*(AUX_MODULES.*valid):\1:" modules.cfg &&
+{ time \
+    {
+        tar -xf freetype-$VERSION.tar.xz &&
+        cd freetype-$VERSION &&
 
-sed -r "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:" \
-    -i include/freetype/config/ftoption.h  &&
+        sed -ri "s:.*(AUX_MODULES.*valid):\1:" modules.cfg &&
 
-./configure --prefix=/usr --enable-freetype-config --disable-static --without-harfbuzz
+        sed -r "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:" \
+            -i include/freetype/config/ftoption.h  &&
 
-make
-make install
+        ./configure --prefix=/usr --enable-freetype-config --disable-static --without-harfbuzz &&
+
+        make &&
+        make install
+    }
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log

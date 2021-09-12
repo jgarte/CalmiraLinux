@@ -3,19 +3,18 @@
 NAME="flex"
 VERSION="2.6.4"
 
-tar -xf $NAME-$VERSION.tar.gz
-cd $NAME-$VERSION
+{ time \
+    {
+        tar -xf $NAME-$VERSION.tar.gz &&
+        cd $NAME-$VERSION &&
 
-./configure --prefix=/usr \
+        ./configure --prefix=/usr        \
             --docdir=/usr/share/doc/flex \
-            --disable-static
+            --disable-static &&
 
-make
+        make &&
+        make install &&
 
-if [ $TEST_MODE = "enable" ]; then
-	make check
-fi
-
-make install
-
-ln -sv flex /usr/bin/lex
+        ln -sv flex /usr/bin/lex
+    }
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log

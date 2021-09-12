@@ -3,14 +3,14 @@
 NAME="file"
 VERSION="5.40"
 
-tar -xf $NAME-$VERSION.tar.gz;
-cd $NAME-$VERSION
+{ time \
+	{
+		tar -xf $NAME-$VERSION.tar.gz &&
+		cd $NAME-$VERSION &&
 
-./configure --prefix=/usr
-make
-
-if [ $TEST_MODE = "enable" ]; then
-	make check
-fi
-
-make install
+		./configure --prefix=/usr &&
+		
+		make &&
+		make install
+	}
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log

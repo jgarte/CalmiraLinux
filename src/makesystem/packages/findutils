@@ -1,12 +1,19 @@
 #!/bin/bash
 
-tar -xf findutils-4.8.0.tar.xz
-cd findutils-4.8.0
+NAME="findutils"
+VERSION="4.8.0"
 
-./configure --prefix=/usr --localstatedir=/var/lib/locate
+{ time \
+    {
+        tar -xf findutils-$VERSION.tar.xz &&
+        cd findutils-$VERSION &&
 
-make
-make install
+        ./configure --prefix=/usr --localstatedir=/var/lib/locate &&
 
-mv -v /usr/bin/find /bin
-sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb
+        make &&
+        make install &&
+
+        mv -v /usr/bin/find /bin &&
+        sed -i 's|find:=${BINDIR}|find:=/bin|' /usr/bin/updatedb
+    }
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log
