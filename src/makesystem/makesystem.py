@@ -19,6 +19,8 @@ BuildInstructions = "/usr/src/packages/" # Файлы с инструкциям�
 LogDir = "/var/log/system_building/packages"
 LogFile = "/var/log/system_building/system_building.log"
 
+ErrorPKG = [ ]
+
 ## Base functions ##
 # Заголовок
 def header_msg(message):
@@ -74,11 +76,19 @@ for File in fileData["files"]:
     else:
         print("\033[31mFAIL\033[0m")
         ErrorPackage = True
+        ErrorPKG.append(PackageFile)
 
 if ErrorPackage:
-    print("Выявлены ошибки при проверке на наличие нужных файлов!") 
-    dialog_msg
-    
+    message_number = 1
+    print("\n\n\033[1m\033[31mErrors detected when checking for the correct build instructions!\033[0m\nList of missing instructions:") 
+    for PKG in ErrorPKG:
+        print("\033[1m{0}.\033[0m {1}".format(message_number, PKG))
+        message_number = message_number + 1
+
+    if message_number > 3:
+        print("More than 3 missing instructions.")
+        exit(1)
+
 """
 Building a system.
 
