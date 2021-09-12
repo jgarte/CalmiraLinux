@@ -35,6 +35,6 @@ ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/11.1.0/liblto_plugin.so \
 mkdir -pv /usr/share/gdb/auto-load/usr/lib{,32} &&
 mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib
 }
-}
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log
 # For multilib
 #mv -v /usr/lib32/*gdb.py /usr/share/gdb/auto-load/usr/lib32
