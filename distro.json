@@ -4,5 +4,6 @@
 	"distroCodename": "Aquarius",
 	"distroDesc": "Calmira LX4 1.1 Aquarius",
 	"distroArch": "x86_64",
+	"distroBuild": 5,
 	"distroBuildDate": "05.09.2021"
 }
