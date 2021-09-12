@@ -1,15 +1,17 @@
 #!/bin/bash
 
-tar -xf expat-2.4.1.tar.xz
-cd expat-2.4.1
+NAME="expat"
+VERSION="2.4.1"
 
-./configure --prefix=/usr    \
+{ time \
+    {
+        tar -xf expat-$VERSION.tar.xz
+        cd expat-$VERSION
+
+        ./configure --prefix=/usr    \
             --disable-static
             
-make
-
-if [ $TEST_MODE = "enable" ]; then
-	make -j1 check
-fi
-
-make install
+        make
+        make install
+    }
+} 2>&1 | tee /var/log/system_building/packages/$NAME.log
