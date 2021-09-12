@@ -29,10 +29,11 @@ $ ver
 ```
 $ ver
 
-        Имя системы: Calmira LX4
-        Версия системы: 1.1
-        Кодовое имя: Aquarius
-        Сборка: 5
+        System name: Calmira LX4
+        System version: 1.1
+        System codename: Aquarius
+        System build: 5
 
-(C) 2021 Михаил Краснов <linuxoid85@gmail.com> для Calmira LX4 1.1
+(C) 2021 Michail Krasnov <linuxoid85@gmail.com> for Calmira LX4 1.1
+
 ```
