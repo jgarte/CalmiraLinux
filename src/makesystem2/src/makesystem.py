@@ -2,7 +2,7 @@
 # Скрипт для автоматизации сборки системы
 # (C) 2021 Михаил Краснов <linuxoid85@gmail.com>
 # Для Calmira LX4 1.1 GNU/Linux
-# Версия: 0.2
+# Версия: print(VERSION)
 
 ## TODOS ##
 # TODO - Add build time analysis and redirect messages to the log for all build scripts
@@ -15,7 +15,7 @@ import subprocess
 ## Base constants ##
 VERSION = "0.2"
 JSON_FILE = "/etc/makesystem.json"
-BuildInstructions = "/usr/src/packages/" # Файлы с инструкциями по сборке
+BuildInstructions = "/usr/src/packages/" # Files with build instructions
 LogDir = "/var/log/system_building/packages"
 LogFile = "/var/log/system_building/system_building.log"
 
@@ -32,7 +32,7 @@ def log_msg(message):
 
 # Диалог с пользователем
 def dialog_msg():
-    print("Прожолжить?")
+    print("Continue?")
 
     run = input()
     if run == "y" or run == "Y":
@@ -49,16 +49,17 @@ def dialog_msg():
 # Check root
 GID = os.getgid()
 if GID != 0:
-    print("\033[31mОШИБКА: вы должны запустить этот скрипт от имени root! \033[0m")
+    print("\033[31mERROR: you must run this script on root! \033[0m")
     exit(1)
 
+# Check log dir
 if os.path.isdir(LogDir):
     pass
 else:
-    print("Создаётся директория {}...".format(LogDir))
+    print("Create directory {}...".format(LogDir))
     os.makedirs(LogDir)
 
-header_msg("Сборка базовой системы")
+header_msg("Start base system building")
 log_msg("START SYSTEM BUILDING")
 
 with open(JSON_FILE) as f:

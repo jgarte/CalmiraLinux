@@ -1,0 +1,16 @@
+#!/bin/bash
+
+NAME="file"
+VERSION="5.40"
+
+tar -xf $NAME-$VERSION.tar.gz;
+cd $NAME-$VERSION
+
+./configure --prefix=/usr
+make
+
+if [ $TEST_MODE = "enable" ]; then
+	make check
+fi
+
+make install

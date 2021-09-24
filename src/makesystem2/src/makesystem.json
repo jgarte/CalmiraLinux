@@ -58,7 +58,7 @@
       "patch",
       "perl",
       "pkg-config",
-	  "postinstall",
+      "postinstall",
       "procps-ng-systemd",
       "procps-ng-sysv",
       "psmisc",
