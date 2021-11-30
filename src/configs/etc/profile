@@ -42,22 +42,6 @@ pathappend () {
 
 export -f pathremove pathprepend pathappend
 
-system_welcome() {
-	echo "  --== Base commands ==--
-ls      - view directory contents 
-cd      - chande directory
-mkdir   - make directory
-rm -f   - delete file
-rm -rf  - delete directory
-cpkg    - package manager for Calmira Linux
-ver     - about Calmira Linux
-
-Shell start date: $(shall_date_start)
-"
-}
-
-export -f system_welcome
-
 # Set the initial path
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 
@@ -72,7 +56,7 @@ export XDG_CONFIG_DIRS=${XDG_CONFIG_DIRS:-/etc/xdg/}
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/xdg-$USER}
 
 # Setup a command promt
-PS1='<develop version> \u:\w\$ '
+PS1='\u:\w\$ '
 
 # Source user files from /etc/profile.d
 for script in /etc/profile.d/*.sh ; do

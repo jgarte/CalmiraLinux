@@ -2,12 +2,6 @@
 # Written for Calmira LX4 1.1 Linux
 # by Michail Krasnov <linuxoid85@gmail.com>
 
-system_welcome
-
-## Aliases
-alias cls='clear'
-alias edit='vim'
-
 if [ $(whoami) != "root" ]; then
     export PATH=/bin:/usr/bin
 fi
